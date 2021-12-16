@@ -24,6 +24,7 @@ class NumberChecker
 
     /**
      * @param array<string|Message\Component\PhoneNumber> $numbers
+     * @return array<string|int, array<string|bool|int>>
      * @throws ApiException
      */
     public function check(array $numbers, ?string $iso = null): array
