@@ -47,7 +47,7 @@ class CompressJson
 
             if ($data !== false)
             {
-                $data = gzdecode($data);
+                $data = @gzdecode($data);
 
                 if ($data !== false)
                 {

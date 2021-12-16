@@ -3,3 +3,4 @@ vendor/
 composer.lock
 test.php
 src/Connection/ConnectionMock.php
+coverage.html

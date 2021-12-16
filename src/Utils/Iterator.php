@@ -15,7 +15,7 @@ use function array_values, count;
  * @implements IteratorAggregate<int|string, Base>
  * @implements ArrayAccess<int|string, Base>
  */
-class Iterator implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
+abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
     use Strict;
 

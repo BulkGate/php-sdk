@@ -12,9 +12,5 @@ if (@!include __DIR__ . '/../vendor/autoload.php')
 }
 
 Tester\Environment::setup();
-date_default_timezone_set('Europe/Prague');
 
-function test(\Closure $function, ...$parameters): void
-{
-    $function(...$parameters);
-}
+date_default_timezone_set('Europe/Prague');
