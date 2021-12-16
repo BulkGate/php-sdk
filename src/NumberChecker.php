@@ -26,7 +26,7 @@ class NumberChecker
      * @param array<string|Message\Component\PhoneNumber> $numbers
      * @throws ApiException
      */
-    public function check(array $numbers, ?string $iso): Connection\Response
+    public function check(array $numbers, ?string $iso = null): array
     {
         $data = [];
 
@@ -34,18 +34,18 @@ class NumberChecker
         {
             if (is_string($number))
             {
-                $data[$number] = [$number, $iso];
+                $data[] = ['phone_number' => $number, 'country' => $iso];
             }
             else if ($number instanceof Message\Component\PhoneNumber)
             {
-                $data[$number->phone_number] = [$number->phone_number, $number->iso ?? $iso];
+                $data[] = ['phone_number' => $number->phone_number, 'country' => $number->iso ?? $iso];
             }
         }
 
-        $response = $this->connection->send(new Connection\Request('check-phone-numbers', new Message\Api($data)));
+        $response = $this->connection->send(new Connection\Request('check-phone-numbers', new Message\Api(['numbers' => $data])));
 
         $response->checkException();
 
-        return $response;
+        return $response->getData();
     }
 }

@@ -88,7 +88,10 @@ class Response
     {
         if (!$this->isSuccess())
         {
-            throw new ApiException($this->error['detail'] ?? $this->error['error'] ?? 'API Error', $this->error['code'] ?? 0);
+            throw new ApiException(
+                $this->error['detail'] ?? $this->error['error'] ?? 'API Error',
+                $this->error['code'] ?? 0
+            );
         }
     }
 }
