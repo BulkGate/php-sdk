@@ -36,6 +36,7 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
      * @param mixed $offset
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->list[$offset] ?? null;
