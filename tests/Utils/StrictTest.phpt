@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Utils\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\Utils\{Json, JsonException, Strict, StrictException};
+use BulkGate\Sdk\Utils\{Strict, StrictException};
 
 require __DIR__ . '/../bootstrap.php';
 

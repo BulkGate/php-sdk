@@ -14,6 +14,7 @@ use BulkGate\{
     Sdk\TypeError,
     Sdk\Utils\Strict
 };
+use function is_string;
 
 class Viber extends Base
 {
@@ -26,12 +27,13 @@ class Viber extends Base
 
     /**
      * @param Component\PhoneNumber|string $phone_number
+     * @param Component\SimpleText|string|null $text
      * @throws TypeError
      */
-    public function __construct($phone_number, ?SimpleText $text = null, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = Settings\Viber::DEFAULT_RESEND_TIMEOUT)
+    public function __construct($phone_number, $text = null, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = Settings\Viber::DEFAULT_RESEND_TIMEOUT)
     {
         parent::__construct($phone_number);
-        $this->settings = new Settings\Viber($text ?? new SimpleText(), $sender, $button, $image, $timeout);
+        $this->settings = new Settings\Viber(Helpers::createText($text) ?? new SimpleText(), $sender, $button, $image, $timeout);
     }
 
 

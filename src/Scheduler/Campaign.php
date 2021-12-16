@@ -19,7 +19,7 @@ class Campaign implements Scheduler
 
     private DateTime $datetime_working;
 
-    private int $per_messages;
+    private int $per_messages = 0;
 
     private string $per_unit;
 

@@ -39,7 +39,7 @@ class Viber implements Settings
 
     public function configure(...$parameters): void
     {
-        [$this->sender, $this->button, $this->image, $timeout] = array_pad($parameters, 1, null);
+        [$this->sender, $this->button, $this->image, $timeout] = array_pad($parameters, 4, null);
 
         $this->timeout = $timeout ?? self::DEFAULT_RESEND_TIMEOUT;
     }

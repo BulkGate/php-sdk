@@ -8,9 +8,8 @@ namespace BulkGate\Sdk\Utils\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\Utils\{Iterator, Json, JsonException, Strict, StrictException};
-use function iterator_to_array;
-use function json_encode;
+use BulkGate\Sdk\Utils\{Iterator};
+use function iterator_to_array, json_encode;
 
 require __DIR__ . '/../bootstrap.php';
 

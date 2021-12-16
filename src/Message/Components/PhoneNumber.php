@@ -8,10 +8,9 @@ namespace BulkGate\Sdk\Message\Component;
  */
 
 use BulkGate\Sdk\Utils\Strict;
-use JsonSerializable;
 use function is_string, mb_strtolower, mb_strlen, preg_replace, trim;
 
-class PhoneNumber implements JsonSerializable /* @php8 Stringable */
+class PhoneNumber /* @php8 Stringable */
 {
     use Strict;
 
@@ -63,17 +62,5 @@ class PhoneNumber implements JsonSerializable /* @php8 Stringable */
     public function __toString(): string
     {
         return $this->phone_number;
-    }
-
-
-    /**
-     * @return array<mixed>
-     */
-    public function jsonSerialize(): array
-    {
-        return [
-            'number' => $this->phone_number,
-            'iso' => $this->iso
-        ];
     }
 }

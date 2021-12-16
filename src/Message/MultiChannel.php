@@ -7,11 +7,11 @@ namespace BulkGate\Sdk\Message;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Sdk\ChannelException,
-    Sdk\Message\Component\SimpleText,
-    Sdk\Message\Component\SmsSender,
+use BulkGate\{
+    Sdk\ChannelException,
     Sdk\Message\Settings,
-    Sdk\Utils\Strict};
+    Sdk\Utils\Strict
+};
 
 class MultiChannel extends Base
 {

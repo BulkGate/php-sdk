@@ -49,8 +49,13 @@ class SmsCountryConfigurator implements Configurator
                 {
                     [$message->settings->sender_id, $message->settings->sender_id_value] = $this->profile[$iso];
                 }
+                else
+                {
+                    $message->settings->sender_id = SmsSender::GATE1;
+                    $message->settings->sender_id_value = SmsSender::DEFAULT_SENDER;
+                }
             }
-        }
+        } // TODO MULTI CHANNEL MESSAGE
     }
 
 

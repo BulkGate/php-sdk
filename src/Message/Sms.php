@@ -7,7 +7,8 @@ namespace BulkGate\Sdk\Message;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\Utils\Strict};
+use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\TypeError, Sdk\Utils\Strict};
+use function is_string;
 
 class Sms extends Base
 {
@@ -16,10 +17,15 @@ class Sms extends Base
     public Settings\Sms $settings;
 
 
-    public function __construct($phone_number, ?SimpleText $text = null)
+    /**
+     * @param Component\PhoneNumber|string $phone_number
+     * @param Component\SimpleText|string|null $text
+     * @throws TypeError
+     */
+    public function __construct($phone_number, $text = null)
     {
         parent::__construct($phone_number);
-        $this->settings = new Settings\Sms($text ?? new SimpleText());
+        $this->settings = new Settings\Sms(Helpers::createText($text) ?? new SimpleText());
     }
 
 

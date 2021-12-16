@@ -7,7 +7,7 @@ namespace BulkGate\Sdk\Message;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Sdk\Utils\Strict, Sdk\TypeError};
+use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\Utils\Strict, Sdk\TypeError};
 use function is_string;
 
 class Helpers
@@ -16,7 +16,7 @@ class Helpers
 
 
     /**
-     * @param Component\PhoneNumber|string|mixed $phone_number
+     * @param Component\PhoneNumber|string|null|mixed $phone_number
      * @throws TypeError
      */
     public static function createNumber(/* @php8 Component\PhoneNumber|string */ $phone_number): Component\PhoneNumber
@@ -31,7 +31,33 @@ class Helpers
         }
         else
         {
-            throw new TypeError();
+            throw new TypeError('Phone number must be \'' . Component\PhoneNumber::class . '|string\'');
+        }
+    }
+
+
+    /**
+     * @param Component\SimpleText|string|null|mixed $text
+     * @param array<string|float|int> $variables
+     * @throws TypeError
+     */
+    public static function createText($text, array $variables = []): ?SimpleText
+    {
+        if ($text instanceof Component\SimpleText)
+        {
+            return $text;
+        }
+        else if (is_string($text))
+        {
+            return new Component\SimpleText($text, $variables);
+        }
+        else if ($text === null)
+        {
+            return null;
+        }
+        else
+        {
+            throw new TypeError('Text must be \'' . Component\SimpleText::class . '|string|null\'');
         }
     }
 }
