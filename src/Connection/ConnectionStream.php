@@ -23,7 +23,7 @@ class ConnectionStream implements Connection
     private string $api;
 
 
-    public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/sdk', string $application_product = 'php-sdk')
+    public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/integration', string $application_product = 'php-sdk')
     {
         $this->application_id = $application_id;
         $this->application_token = $application_token;
