@@ -1,0 +1,35 @@
+{
+  "name": "bulkgate/php-sdk",
+  "description": "Simple PHP SDK for sending SMS/Viber via BulkGate portal.",
+  "keywords": ["sms", "bulkgate", "nette", "viber"],
+  "homepage": "https://www.bulkgate.com",
+  "license": ["BSD-3-Clause"],
+  "authors": [
+    {
+      "name": "TOPefekt s.r.o.",
+      "homepage": "http://www.topefekt.com"
+    },
+    {
+      "name": "Lukáš Piják",
+      "homepage": "http://www.lukaspijak.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-json": "*",
+    "ext-zlib": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "nette/tester": "~2.0",
+    "tracy/tracy": "^2.4",
+    "phpstan/phpstan": "^1.2"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  },
+  "scripts": {
+    "tester": "tester tests -s -C",
+    "phpstan": "phpstan analyse -c phpstan.neon"
+  }
+}
