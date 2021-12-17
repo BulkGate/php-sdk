@@ -84,6 +84,10 @@ $phone_number->iso("cz");
 The second parameter is the input of the text of the message. There are also 2 options where the first is to enter text using a string, and the other is an instance of the class omponent\SimpleText, or null.
 
 ```
+$phone_number = new PhoneNumber('777777777', 'cz');
 $text = new SimpleText("test <variable>", ["variable" => "message"]);
+
+$message = new Sms($phone_number, $text);
+
 ```
 
