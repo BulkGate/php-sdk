@@ -24,7 +24,8 @@
     "nette/tester": "~2.0",
     "tracy/tracy": "^2.4",
     "phpstan/phpstan": "^1.2",
-    "mockery/mockery": "^1.4"
+    "mockery/mockery": "^1.4",
+    "nette/di": "^3.0"
   },
   "autoload": {
     "classmap": ["src/"]

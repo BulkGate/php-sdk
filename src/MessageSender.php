@@ -7,7 +7,7 @@ namespace BulkGate\Sdk;
  * @link https://www.bulkgate.com/
  */
 
-use function get_class, preg_match, mb_strtolower;
+use function get_class, preg_match, mb_strtolower, is_string;
 
 class MessageSender implements Sender
 {
@@ -52,16 +52,17 @@ class MessageSender implements Sender
     /**
      * @throws InvalidStateException
      */
-    public function setDefaultCountry(string $country): self
+    public function setDefaultCountry(?string $country): self
     {
-        if (preg_match('~^[a-zA-Z]{2}$~', $country))
+        if ($country !== null && !preg_match('~^[a-zA-Z]{2}$~', $country))
         {
-            $this->default_country = mb_strtolower($country);
-
-            return $this;
+            throw new InvalidStateException("Invalid ISO 3166-1 alpha-2 format - '$country'");
         }
 
-        throw new InvalidStateException("Invalid ISO 3166-1 alpha-2 format - '$country'");
+        $this->default_country = is_string($country) ? mb_strtolower($country) : null;
+
+        return $this;
+
     }
 
 

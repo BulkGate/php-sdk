@@ -105,6 +105,20 @@ class MessageSenderTest extends TestCase
     public function testDefaultCountry(): void
     {
         Assert::exception(fn () => $this->sender->setDefaultCountry('czk'), InvalidStateException::class, 'Invalid ISO 3166-1 alpha-2 format - \'czk\'');
+
+        $this->sender->setDefaultCountry('sk');
+
+        Assert::with($this->sender, function (): void
+        {
+            Assert::same('sk', $this->default_country);
+        });
+
+        $this->sender->setDefaultCountry(null);
+
+        Assert::with($this->sender, function (): void
+        {
+            Assert::null($this->default_country);
+        });
     }
 }
 
