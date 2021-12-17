@@ -29,6 +29,7 @@
   "autoload": {
     "classmap": ["src/"]
   },
+  "minimum-stability": "dev",
   "scripts": {
     "tester": "tester tests -s -C",
     "coverage": "tester -C tests --coverage=coverage.html --coverage-src=src",
