@@ -108,3 +108,29 @@ $channels = $message->getChannels();
 ## JSON Supoort
 
 The `BulkGate\Sms\Message` object implements the `\JsonSerializable` interface that lets you convert it via the `json_encode()` to JSON format.
+
+```
+/** @var BulkGate\Sdk\Message\Sms $message */
+$message = new SMS('447971700001', 'test message');
+
+echo json_encode($message);
+```
+
+The output is:
+
+```
+{
+  "primary_channel": "sms",
+  "phone_number": "777777777",
+  "country": "cz",
+  "channels": {
+    "sms": {
+      "text": "test_text",
+      "variables": [],
+      "sender_id": "gSystem",
+      "sender_id_value": "",
+      "unicode": false
+    }
+  }
+}
+```
