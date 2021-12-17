@@ -9,6 +9,7 @@ namespace BulkGate\Sdk\Connection;
 
 use BulkGate\Sdk\ApiException;
 use BulkGate\Sdk\Utils\{CompressJson, Json, Strict};
+use Throwable;
 
 class Response
 {
@@ -31,7 +32,14 @@ class Response
 
         if (isset($this->decoders[$content_type]))
         {
-            $data = $this->decoders[$content_type]($data);
+            try
+            {
+                $data = $this->decoders[$content_type]($data);
+            }
+            catch (Throwable $e)
+            {
+                $data = null;
+            }
 
             if (is_array($data))
             {
@@ -61,6 +69,15 @@ class Response
                         'detail' => null
                     ];
                 }
+            }
+            else
+            {
+                $this->error = [
+                    'type' => 'malformed_response',
+                    'error' => 'Server response is malformed.',
+                    'code' => 400,
+                    'detail' => null
+                ];
             }
         }
     }

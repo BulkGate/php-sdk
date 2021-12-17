@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Connection;
  */
 
 use BulkGate\Sdk\{ConnectionException, Utils\Strict};
-use function implode, fopen, fclose, stream_context_create, stream_get_contents, stream_get_meta_data;
+use function implode;
 
 class ConnectionStream implements Connection
 {
@@ -22,13 +22,16 @@ class ConnectionStream implements Connection
 
     private string $api;
 
+    private string $content_type;
 
-    public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/integration', string $application_product = 'php-sdk')
+
+    public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/integration', string $application_product = 'php-sdk', string $content_type = 'application/json')
     {
         $this->application_id = $application_id;
         $this->application_token = $application_token;
         $this->api = $api;
         $this->application_product = $application_product;
+        $this->content_type = $content_type;
     }
 
 
@@ -37,7 +40,7 @@ class ConnectionStream implements Connection
      */
     public function send(Request $request): Response
     {
-        [$content_type, $action, $data] = $request->encode('application/json', [
+        [$content_type, $action, $data] = $request->encode($this->content_type, [
             'application_id' => $this->application_id,
             'application_token' => $this->application_token,
             'application_product' => $this->application_product
