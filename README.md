@@ -37,7 +37,7 @@ At this point, you are ready to send a message.
 $message = new Sms("420603902776", "test_text");
 ```
 
-The send() method will send a message $message.
+The `send()` method will send a message `$message`.
 
 ## API administration & tokens
 
@@ -61,13 +61,13 @@ The class accepts as the first argument a phone number that can be entered by a 
 $message = new Sms("420603902776", "test_text");
 ```
 
-or accepts an instance of the object BulkGate\Sdk\Message\Component\PhoneNumber:
+or accepts an instance of the object `BulkGate\Sdk\Message\Component\PhoneNumber`:
 
 ```
 $message = new Sms(new BulkGate\Sdk\Message\Component\PhoneNumber('777777777', 'cz'), 'test message');
 ```
 
-To obtain a phone number, you can use the print out the class object `BulkGate\Sdk\Message\Component\PhoneNumber`, which always returns a phone number in string.
+To obtain a phone number, you can use the print out the class object `BulkGate\Sdk\Message\Component\PhoneNumber`, which always returns a phone number as a string.
 
 You can also set phone number and iso separately
 
@@ -79,7 +79,7 @@ $phone_number->iso("cz");
 
 ### Text of the message
 
-The second parameter is the input of the text of the message. There are also 2 options where the first is to enter text using a `string`, and the other is an instance of the class `component\SimpleText`, or null.
+The second parameter is the input of the text of the message. There are also 2 options where the first is to enter text using a `string`, and the other is an instance of the class `component\SimpleText`, or `null`.
 
 ```
 $phone_number = new PhoneNumber('777777777', 'cz');
@@ -98,7 +98,7 @@ $message = new Sms($phone_number);
 $message->text("test <variable>", ["variable" => "message"])
 ```
 
-You can use the getChannels() method, to retrieve the array of used channels.
+You can use the `getChannels()` method, to retrieve the array of used channels.
 
 ```
 /** @var array $channels */
@@ -107,4 +107,4 @@ $channels = $message->getChannels();
 
 ## JSON Supoort
 
-The BulkGate\Sms\Message object implements the \JsonSerializable interface that lets you convert it via the json_encode() to JSON format.
+The `BulkGate\Sms\Message` object implements the `\JsonSerializable` interface that lets you convert it via the `json_encode()` to JSON format.
