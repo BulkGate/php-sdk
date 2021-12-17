@@ -1,0 +1,14 @@
+extensions:
+	sdk: BulkGate\Sdk\DI\Extension
+
+sdk:
+	application_id: 0000
+	application_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	sender:
+		tag: 'sdk'
+		default_country: cz
+	configurator:
+		sms:
+			sender_id: gText
+			sender_id_value: 'Example'
+			unicode: true
