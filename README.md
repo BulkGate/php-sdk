@@ -73,7 +73,7 @@ You can also set phone number and iso separately
 
 ```
 $phone_number = new PhoneNumber();
-$phone_number->phone_number("777777777");
+$phone_number->phoneNumber("777777777");
 $phone_number->iso("cz");       
 ```
 
