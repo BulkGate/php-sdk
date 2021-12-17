@@ -14,8 +14,10 @@ class DIContainerFactory
 {
     use StaticClass;
 
+    /** @internal */
     public static function create(string $config_file): DIC
     {
+        /** @info Please do not use this HACK in your application, it is for testing purposes only */
         eval((new Compiler)->addExtension('extensions', new ExtensionsExtension())->loadConfig($config_file)->compile());
 
         /** @phpstan-ignore-next-line */
