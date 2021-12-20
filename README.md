@@ -150,7 +150,7 @@ The output is:
 
 ## Fluent interface
 
-[Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is the technique of chaining methods.
+[Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is the technique of chaining methods. Every object of this SDK includes fluent interface.
 
 ```
 $phone_number = new PhoneNumber("603902776", "cz");
