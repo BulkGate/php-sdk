@@ -51,13 +51,6 @@ $message = new Sms($phone_number);
 $message->text("test <variable>", ["variable" => "message"])
 ```
 
-You can use the `getChannels()` method, to retrieve the array of used channels.
-
-```php
-/** @var array $channels */
-$channels = $message->getChannels();
-```
-
 ### Settings
 
 You can accesss public variable settings to configure [sender_id](https://help.bulkgate.com/docs/en/http-advanced-transactional.html#sender-id-type-sender_id) and unicode
