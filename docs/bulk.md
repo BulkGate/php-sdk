@@ -24,7 +24,7 @@ $this->sender->send($message);
 
 ### Iterator
 
-You can browse through messsages using the foreach cycle
+You can go through messsages in bulk message using the foreach cycle
 
 ```php
 /** 
@@ -35,4 +35,16 @@ foreach($bulk_message as $message)
 {
     echo $message;
 }
+```
+
+You can basicaly treat the bulk message as an array
+
+```
+$bulk_message['sms'] = new Sms("420777777777", "text_message");
+
+isset(bulk_message);
+
+count($bulk_message);
+
+unset($bulk_message['sms']);
 ```
