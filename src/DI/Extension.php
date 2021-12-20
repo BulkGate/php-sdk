@@ -56,14 +56,14 @@ class Extension extends CompilerExtension
                     'sender' => Expect::string()->required(),
                     'button' => Expect::structure([
                         'caption' => Expect::string('OK'),
-                        'url' => Expect::string('#')
-                    ])->default(null),
+                        'url' => Expect::string()->required()
+                    ])->required(false),
                     'image' => Expect::structure([
                         'url' => Expect::string()->required(),
                         'zoom' => Expect::bool(false)
-                    ])->default(null),
+                    ])->required(false),
                     'expiration' => Expect::int()
-                ])->default(null)
+                ])->required(false)
             ])
         ]);
     }
@@ -124,12 +124,17 @@ class Extension extends CompilerExtension
                 $this->config->connection->content_type
             ]);
 
-        $builder->addDefinition($this->prefix('sender'))
+        $sender = $builder->addDefinition($this->prefix('sender'))
             ->setAutowired(Sender::class)
             ->setFactory(MessageSender::class)
             ->addSetup('setTag', [$this->config->sender->tag])
             ->addSetup('setDefaultCountry', [$this->config->sender->default_country])
-            ->addSetup('addSenderConfigurator', ['@' . $this->prefix('sms.configurator')]);
+            ->addSetup('addSenderConfigurator', ['@' . $this->prefix('configurator.sms')]);
+
+        if ($viber !== null)
+        {
+            $sender->addSetup('addSenderConfigurator', ['@' . $this->prefix('configurator.viber')]);
+        }
 
         $builder->addDefinition($this->prefix('number.checker'))
             ->setFactory(NumberChecker::class);
