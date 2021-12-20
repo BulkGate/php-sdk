@@ -74,68 +74,11 @@ class MessageSender implements Sender
     {
         if ($message instanceof Message\Bulk)
         {
-            foreach ($message as $m)
-            {
-                $this->configure($m);
-
-                if ($this->scheduler !== null)
-                {
-                    $this->scheduler->schedule($m);
-                }
-            }
-
-            $response = $this->connection->send(new Connection\Request('promotional', $message));
-
-            $message_status_list = $response->getData();
-
-            $response->checkException();
-
-            $message_key = 0;
-
-            foreach ($message as $m)
-            {
-                $message_status = $message_status_list[$message_key] ?? null;
-
-                if ($message_status !== null && $m instanceof Message\Base)
-                {
-                    $m->updateStatus(
-                        $message_status['status'] ?? 'error',
-                        $message_status['message_id'] ?? null,
-                        $message_status['part_id'] ?? null,
-                        $message_status['error'] ?? null,
-                    );
-                }
-
-                $message_key ++;
-            }
-
-            return $message;
+            return $this->sendBulk($message);
         }
         else if ($message instanceof Message\Base)
         {
-            $this->configure($message);
-
-            if ($this->scheduler !== null)
-            {
-                $this->scheduler->schedule($message);
-            }
-
-            $response = $this->connection->send(new Connection\Request('transactional', $message, [
-                'tag' => $this->tag
-            ]));
-
-            $response->checkException();
-
-            $message_status = $response->getData();
-
-            $message->updateStatus(
-                $message_status['status'] ?? 'error',
-                $message_status['message_id'] ?? null,
-                $message_status['part_id'] ?? null,
-                $message_status['error'] ?? null,
-            );
-
-            return $message;
+            return $this->sendBase($message);
         }
         else
         {
@@ -144,18 +87,87 @@ class MessageSender implements Sender
     }
 
 
-    private function configure(Message\Send $message): void
+    /**
+     * @throws ApiException
+     */
+    private function sendBase(Message\Base $message): Message\Base
     {
-        if ($message instanceof Message\Message) foreach ($message->getChannels() as $channel)
+        $this->configure($message);
+
+        $response = $this->connection->send(new Connection\Request('transactional', $message, [
+            'tag' => $this->tag
+        ]));
+
+        $response->checkException();
+
+        $message_status = $response->getData();
+
+        $message->updateStatus(
+            $message_status['status'] ?? 'error',
+            $message_status['message_id'] ?? null,
+            $message_status['part_id'] ?? null,
+            $message_status['error'] ?? null,
+        );
+
+        return $message;
+    }
+
+
+    /**
+     * @throws ApiException
+     */
+    private function sendBulk(Message\Bulk $message): Message\Bulk
+    {
+        foreach ($message as $m)
+        {
+            $this->configure($m);
+        }
+
+        $response = $this->connection->send(new Connection\Request('promotional', $message, [
+            'tag' => $this->tag
+        ]));
+
+        $response->checkException();
+
+        $message_status_list = $response->getData();
+
+        $message_key = 0;
+
+        foreach ($message as $m)
+        {
+            $message_status = $message_status_list[$message_key] ?? null;
+
+            if ($message_status !== null && $m instanceof Message\Base)
+            {
+                $m->updateStatus(
+                    $message_status['status'] ?? 'error',
+                    $message_status['message_id'] ?? null,
+                    $message_status['part_id'] ?? null,
+                    $message_status['error'] ?? null,
+                );
+            }
+
+            $message_key ++;
+        }
+
+        return $message;
+    }
+
+
+    private function configure(Message\Base $message): void
+    {
+        if ($this->scheduler !== null)
+        {
+            $this->scheduler->schedule($message);
+        }
+
+        foreach ($message->getChannels() as $channel)
         {
             if (isset($this->configurators[$channel]))
             {
                 $this->configurators[$channel]->configure($message);
 
-                if ($this->default_country !== null && $message instanceof Message\Base)
-                {
-                    $message->phone_number->iso ??= $this->default_country;
-                }
+                $message->phone_number->iso ??= $this->default_country;
             }
         }
     }

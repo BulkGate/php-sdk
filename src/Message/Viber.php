@@ -48,6 +48,12 @@ class Viber extends Base
     }
 
 
+    public function configure(...$parameters): void
+    {
+        $this->settings->configure(...$parameters);
+    }
+
+
     /**
      * @return array<mixed>
      */

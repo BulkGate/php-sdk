@@ -29,7 +29,7 @@ class MultiChannel extends Base
     ];
 
 
-    public function sms(Component\SimpleText $text, string $sender_id = Component\SmsSender::GATE_SYSTEM_NUMBER, string $sender_id_value = Component\SmsSender::DEFAULT_SENDER, bool $unicode = false): self
+    public function sms(Component\SimpleText $text, ?string $sender_id = null, ?string $sender_id_value = null, ?bool $unicode = null): self
     {
         $this->channel(new Settings\Sms($text, $sender_id, $sender_id_value, $unicode));
 
@@ -37,7 +37,7 @@ class MultiChannel extends Base
     }
 
 
-    public function viber(Component\SimpleText $text, ?string $sender = null, ?Component\Button $button = null, ?Component\Image $image = null, int $timeout = Settings\Viber::DEFAULT_RESEND_TIMEOUT): self
+    public function viber(Component\SimpleText $text, ?string $sender = null, ?Component\Button $button = null, ?Component\Image $image = null, ?int $timeout = null): self
     {
         $this->channel(new Settings\Viber($text, $sender, $button, $image, $timeout));
 
@@ -48,8 +48,10 @@ class MultiChannel extends Base
     /**
      * @param mixed ...$parameters
      */
-    public function configure(string $channel, ...$parameters): void
+    public function configure(...$parameters): void
     {
+        $channel = $parameters[0] ?? null;
+
         if (isset($this->channels[$channel]) && $this->channels[$channel] instanceof Settings\Settings)
         {
             $this->channels[$channel]->configure(...$parameters);

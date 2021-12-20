@@ -78,7 +78,7 @@ class MessageSenderTest extends TestCase
             Assert::same([
                 'application/json',
                 'promotional',
-                '{"application_id":5,"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":"cz","channels":{"sms":{"text":"test1","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}},{"primary_channel":"sms","phone_number":"420777777778","country":"cz","channels":{"sms":{"text":"test2","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}}]}',
+                '{"application_id":5,"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":"cz","channels":{"sms":{"text":"test1","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}},{"primary_channel":"sms","phone_number":"420777777778","country":"cz","channels":{"sms":{"text":"test2","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}}],"tag":"451"}',
             ], $request->encode('application/json', ['application_id' => 5]));
 
             return true;

@@ -37,6 +37,10 @@ abstract class Base implements Message, Send
     }
 
 
+    /** @param mixed ...$parameters */
+    abstract public function configure(...$parameters): void;
+
+
     /**
      * @param array<int, string>|null $part_id
      */

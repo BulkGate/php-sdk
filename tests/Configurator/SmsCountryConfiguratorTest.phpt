@@ -14,6 +14,7 @@ use BulkGate\Sdk\Configurator\SmsCountryConfigurator;
 use BulkGate\Sdk\Message\Component\SimpleText;
 use BulkGate\Sdk\Message\MultiChannel;
 use BulkGate\Sdk\Message\Sms;
+use function dump;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -30,11 +31,11 @@ class SmsCountryConfiguratorTest extends TestCase
 
     public function testConstruct(): void
     {
-        $configurator = new SmsCountryConfigurator();
+        $configurator = new SmsCountryConfigurator(true);
 
         $configurator->configure($this->sms);
 
-        Assert::same(['gGate1', ''], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value]);
+        Assert::same(['gGate1', '', true], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
     }
 
 
@@ -48,19 +49,28 @@ class SmsCountryConfiguratorTest extends TestCase
 
         $configurator->configure($this->sms);
 
-        Assert::same(['gGate2', 'BulkGate'], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value]);
+        Assert::same(['gGate2', 'BulkGate', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
 
         $sk_message = new Sms('421777777777', 'test');
 
         $configurator->configure($sk_message);
 
-        Assert::same(['gGate4', 'TOPefekt'], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value]);
+        Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
 
         $configurator->removeCountry('sk');
 
+        $configurator->unicode(true);
+
         $configurator->configure($sk_message);
 
-        Assert::same(['gGate1', ''], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value]);
+        // Restrict rewrite test
+        Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
+
+        $second_message = new Sms('421777777777', 'test');
+
+        $configurator->configure($second_message);
+
+        Assert::same(['gGate1', '', true], [$second_message->settings->sender_id, $second_message->settings->sender_id_value, $second_message->settings->unicode]);
     }
 
 

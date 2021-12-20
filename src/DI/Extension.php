@@ -13,6 +13,7 @@ use Nette\Schema\{Expect, Schema};
 use BulkGate\Sdk\{
     Configurator\SmsConfigurator,
     Configurator\SmsCountryConfigurator,
+    Configurator\ViberConfigurator,
     Connection\Connection,
     Connection\ConnectionStream,
     Message\Component\SmsSender,
@@ -50,7 +51,19 @@ class Extension extends CompilerExtension
                         'gate' => Expect::string(),
                         'sender' => Expect::string()
                     ]))
-                ])
+                ]),
+                'viber' => Expect::structure([
+                    'sender' => Expect::string()->required(),
+                    'button' => Expect::structure([
+                        'caption' => Expect::string('OK'),
+                        'url' => Expect::string('#')
+                    ])->default(null),
+                    'image' => Expect::structure([
+                        'url' => Expect::string()->required(),
+                        'zoom' => Expect::bool(false)
+                    ])->default(null),
+                    'expiration' => Expect::int()
+                ])->default(null)
             ])
         ]);
     }
@@ -64,8 +77,8 @@ class Extension extends CompilerExtension
 
         if (count($sms->country) > 0)
         {
-            $configurator = $builder->addDefinition($this->prefix('sms.configurator'))
-                ->setFactory(SmsCountryConfigurator::class);
+            $configurator = $builder->addDefinition($this->prefix('configurator.sms'))
+                ->setFactory(SmsCountryConfigurator::class, [$sms->unicode]);
 
             foreach ($sms->country as $country => $item)
             {
@@ -74,8 +87,31 @@ class Extension extends CompilerExtension
         }
         else
         {
-            $builder->addDefinition($this->prefix('sms.configurator'))
+            $builder->addDefinition($this->prefix('configurator.sms'))
                 ->setFactory(SmsConfigurator::class, [$sms->sender_id, $sms->sender_id_value, $sms->unicode]);
+        }
+
+        $viber = $this->config->configurator->viber;
+
+        if ($viber !== null)
+        {
+            $viber_configurator = $builder->addDefinition($this->prefix('configurator.viber'))
+                ->setFactory(ViberConfigurator::class, [$viber->sender]);
+
+            if ($viber->button)
+            {
+                $viber_configurator->addSetup('button', [$viber->button->caption, $viber->button->url]);
+            }
+
+            if ($viber->image)
+            {
+                $viber_configurator->addSetup('image', [$viber->image->url, $viber->image->zoom]);
+            }
+
+            if ($viber->expiration)
+            {
+                $viber_configurator->addSetup('expiration', [$viber->expiration]);
+            }
         }
 
         $builder->addDefinition($this->prefix('connection'))

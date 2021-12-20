@@ -43,17 +43,13 @@ class Helpers
      */
     public static function createText($text, array $variables = []): ?SimpleText
     {
-        if ($text instanceof Component\SimpleText)
+        if ($text instanceof Component\SimpleText || $text === null)
         {
             return $text;
         }
         else if (is_string($text))
         {
             return new Component\SimpleText($text, $variables);
-        }
-        else if ($text === null)
-        {
-            return null;
         }
         else
         {

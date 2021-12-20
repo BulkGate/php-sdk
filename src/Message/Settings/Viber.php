@@ -7,8 +7,14 @@ namespace BulkGate\Sdk\Message\Settings;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\Utils\Strict;
-use BulkGate\Sdk\Message\Component\{SimpleText, Button, Image};
+use BulkGate\Sdk\{
+    Message\Channel,
+    Utils\Strict,
+    Message\Component\Button,
+    Message\Component\Image,
+    Message\Component\SimpleText
+};
+use function array_pad;
 
 class Viber implements Settings
 {
@@ -24,10 +30,10 @@ class Viber implements Settings
 
     public ?Image $image;
 
-    public int $timeout;
+    public ?int $timeout;
 
 
-    public function __construct(SimpleText $text, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = self::DEFAULT_RESEND_TIMEOUT)
+    public function __construct(SimpleText $text, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = null)
     {
         $this->text = $text;
         $this->sender = $sender;
@@ -39,9 +45,15 @@ class Viber implements Settings
 
     public function configure(...$parameters): void
     {
-        [$this->sender, $this->button, $this->image, $timeout] = array_pad($parameters, 4, null);
+        [$channel, $sender, $button, $image, $timeout] = array_pad($parameters, 5, null);
 
-        $this->timeout = $timeout ?? self::DEFAULT_RESEND_TIMEOUT;
+        if ($channel === Channel::VIBER)
+        {
+            $this->sender ??= $sender;
+            $this->button ??= $button;
+            $this->image ??= $image;
+            $this->timeout ??= $timeout;
+        }
     }
 
 
@@ -58,7 +70,7 @@ class Viber implements Settings
             'button_url' => $this->button instanceof Button ? $this->button->url : '#',
             'image' => $this->image instanceof Image ? $this->image->url : null,
             'image_zoom' => $this->image instanceof Image ? $this->image->zoom : false,
-            'expiration' => $this->timeout
+            'expiration' => $this->timeout ?? self::DEFAULT_RESEND_TIMEOUT
         ];
     }
 }

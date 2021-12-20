@@ -35,10 +35,10 @@ class ViberTest extends TestCase
 
         Assert::same($text, $viber->text);
 
-        $viber->configure('TOPefekt', new Button('ok', 'temp'));
-        $viber->configure('TOPefekt1', new Button('ok1', 'temp1'), new Image('url', true), 5000);
+        $viber->configure('viber', 'TOPefekt', new Button('ok', 'temp'));
+        $viber->configure('viber', 'TOPefekt1', new Button('ok1', 'temp1'), new Image('url', true), 5000);
 
-        Assert::same('{"text":"test <a>","variables":{"a":5},"sender":"TOPefekt1","button_caption":"ok1","button_url":"temp1","image":"url","image_zoom":true,"expiration":5000}', json_encode($viber));
+        Assert::same('{"text":"test <a>","variables":{"a":5},"sender":"TOPefekt","button_caption":"ok","button_url":"temp","image":"url","image_zoom":true,"expiration":5000}', json_encode($viber));
     }
 
 

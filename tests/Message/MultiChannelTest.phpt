@@ -65,32 +65,45 @@ class MultiChannelTest extends TestCase
         Assert::same('sms', $message->primary_channel);
 
         Assert::exception(fn () => $message->setPrimaryChannel('xxxx'), ChannelException::class, 'Channel \'xxxx\' is not defined.');
+    }
+
+
+    public function testConfigure(): void
+    {
+        $message = new MultiChannel(new PhoneNumber('420608777777', 'cz'));
+
+        Assert::null($message->primary_channel);
+
+        $message
+            ->viber(new SimpleText('text_viber', []))
+            ->sms(new SimpleText('test_sms', []), null, null, true);
+
 
         $message->configure('sms', 'gShort', '');
-        $message->configure('viber', 'TOPefekt');
+        $message->configure('viber', 'TOPefekt', new Button('caption', 'url'), new Image('image_url', true), 3_600);
 
         Assert::same([
-            'primary_channel' => 'sms',
+            'primary_channel' => 'viber',
             'phone_number' => '420608777777',
             'country' => 'cz',
-            'schedule' => 150,
+            'schedule' => null,
             'channels' => [
                 'viber' => [
                     'text' => 'text_viber',
                     'variables' => [],
                     'sender' => 'TOPefekt',
-                    'button_caption' => 'OK',
-                    'button_url' => '#',
-                    'image' => null,
-                    'image_zoom' => false,
-                    'expiration' => 10800,
+                    'button_caption' => 'caption',
+                    'button_url' => 'url',
+                    'image' => 'image_url',
+                    'image_zoom' => true,
+                    'expiration' => 3_600,
                 ],
                 'sms' => [
                     'text' => 'test_sms',
                     'variables' => [],
                     'sender_id' => 'gShort',
                     'sender_id_value' => '',
-                    'unicode' => false,
+                    'unicode' => true,
                 ],
             ],
         ], json_decode(json_encode($message), true));

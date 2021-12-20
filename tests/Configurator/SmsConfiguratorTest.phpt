@@ -119,18 +119,9 @@ class SmsConfiguratorTest extends TestCase
     }
 
 
-    public function testChannel(): void
-    {
-        $configurator = new SmsConfigurator();
-
-        Assert::same('sms', $configurator->getChannel());
-    }
-
-
     public function testMultiChannel(): void
     {
         $message = new MultiChannel('420777777777');
-
         $message->viber(new SimpleText('test2'))->sms(new SimpleText('test2'));
 
         $configurator = new SmsConfigurator('gText', 'BulkGate');
@@ -140,6 +131,14 @@ class SmsConfiguratorTest extends TestCase
         $configurator->configure($message);
 
         Assert::same(['gText', 'BulkGate', true], [$message->channels['sms']->sender_id, $message->channels['sms']->sender_id_value, $message->channels['sms']->unicode]);
+    }
+
+
+    public function testChannel(): void
+    {
+        $configurator = new SmsConfigurator();
+
+        Assert::same('sms', $configurator->getChannel());
     }
 }
 

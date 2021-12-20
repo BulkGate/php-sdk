@@ -7,11 +7,11 @@ namespace BulkGate\Sdk\Configurator;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\Message\Send;
+use BulkGate\Sdk\Message\Base;
 
 interface Configurator
 {
-    public function configure(Send $message): void;
+    public function configure(Base $message): void;
 
 
     public function getChannel(): string;

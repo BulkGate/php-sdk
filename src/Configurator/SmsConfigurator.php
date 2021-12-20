@@ -7,7 +7,7 @@ namespace BulkGate\Sdk\Configurator;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\Message\{Channel, Component\SmsSender, MultiChannel, Sms, Send};
+use BulkGate\Sdk\Message\{Channel, Component\SmsSender, Base};
 use function mb_substr;
 
 class SmsConfigurator implements Configurator
@@ -75,16 +75,9 @@ class SmsConfigurator implements Configurator
     }
 
 
-    public function configure(Send $message): void
+    public function configure(Base $message): void
     {
-        if ($message instanceof Sms)
-        {
-            $message->settings->configure($this->sender_id, $this->sender_id_value, $this->unicode);
-        }
-        else if ($message instanceof MultiChannel)
-        {
-            $message->configure(Channel::SMS, $this->sender_id, $this->sender_id_value, $this->unicode);
-        }
+        $message->configure(Channel::SMS, $this->sender_id, $this->sender_id_value, $this->unicode);
     }
 
 

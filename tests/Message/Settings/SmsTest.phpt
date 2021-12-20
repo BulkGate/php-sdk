@@ -28,23 +28,52 @@ class SmsTest extends TestCase
 
         Assert::same('{"text":"test <a>","variables":{"a":5},"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}', json_encode($sms));
 
-        $sms->configure('gOwn', '420777777777', false);
+        // Restrict rewrite
+        $sms->configure('sms', 'gOwn', '420777777777', false);
+
+        Assert::same($text, $sms->text);
+        Assert::same('gText', $sms->sender_id);
+        Assert::same('BulkGate', $sms->sender_id_value);
+        Assert::true($sms->unicode);
+    }
+
+
+    public function testConfigure(): void
+    {
+        $sms = new Sms($text = new SimpleText('test <a>', ['a' => 5]));
+
+        Assert::same($text, $sms->text);
+        Assert::null($sms->sender_id);
+        Assert::null($sms->sender_id_value);
+        Assert::null($sms->unicode);
+
+        Assert::same('{"text":"test <a>","variables":{"a":5},"sender_id":"gSystem","sender_id_value":"","unicode":false}', json_encode($sms));
+
+        $sms->configure('sms', 'gOwn', '420777777777', false);
 
         Assert::same($text, $sms->text);
         Assert::same('gOwn', $sms->sender_id);
         Assert::same('420777777777', $sms->sender_id_value);
         Assert::false($sms->unicode);
+    }
 
-        $sms->unicode = true;
 
-        Assert::true($sms->unicode);
-
-        $sms->configure('gShort');
+    public function testUnicode(): void
+    {
+        $sms = new Sms($text = new SimpleText('test <a>', ['a' => 5]));
 
         Assert::same($text, $sms->text);
-        Assert::same('gShort', $sms->sender_id);
-        Assert::same('', $sms->sender_id_value);
-        Assert::false($sms->unicode);
+        Assert::null($sms->sender_id);
+        $sms->sender_id = 'gTest';
+        Assert::null($sms->sender_id_value);
+        Assert::null($sms->unicode);
+
+        $sms->configure('sms', 'gShort', 'TOP', true);
+
+        Assert::same($text, $sms->text);
+        Assert::same('gTest', $sms->sender_id);
+        Assert::same('TOP', $sms->sender_id_value);
+        Assert::true($sms->unicode);
     }
 }
 
