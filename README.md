@@ -134,3 +134,25 @@ The output is:
   }
 }
 ```
+
+## Convert to string
+
+```
+$message = new Sms("420777777777", "test_text");
+echo (string)$message; // to the output
+```
+
+The output is:
+
+```
+420777777777
+```
+
+## Fluent interface
+
+[Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is the technique of chaining methods.
+
+```
+$phone_number = new PhoneNumber("603902776", "cz");
+$phone_number->phoneNumber("777777777")->iso("cz");
+```
