@@ -49,7 +49,7 @@ The `send()` method will send a message `$message`.
 
 The `BulkGate\Sdk\Message\Sms` class represents the object of the SMS message, which consists of the content of the message and the recipient.
 
-```
+``` php
 use BulkGate\Sdk\Message\Sms;
 ```
 
