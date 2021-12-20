@@ -45,7 +45,7 @@ The `send()` method will send a message `$message`.
 
 [API token](https://help.bulkgate.com/docs/en/api-tokens.html)
 
-## Transactional message
+## Transactional SMS
 
 The `BulkGate\Sdk\Message\Sms` class represents the object of the SMS message, which consists of the content of the message and the recipient.
 
@@ -165,7 +165,7 @@ The output is:
 [Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is the technique of chaining methods. Every object of this SDK includes fluent interface.
 
 ``` php
-$phone_number = new PhoneNumber("603902776", "cz");
+$phone_number = new PhoneNumber("420777777777");
 $phone_number->phoneNumber("777777777")->iso("cz");
 ```
 
@@ -181,7 +181,7 @@ use BulkGate\Sdk\Message\Viber;
 The class accepts as the first argument a phone number that can be entered by a string:
 
 ``` php
-$message = new Viber("420603902776", "test_text");
+$message = new Viber("420777777777", "test_text");
 ```
 
 or accepts an instance of the object `BulkGate\Sdk\Message\Component\PhoneNumber`:
@@ -214,7 +214,7 @@ $message = new Viber($phone_number, $text);
 Of course, you can define text even after creating an instance of an object using the method `text(string $text, array $variables = [])`
 
 ``` php
-$phone_number = new PhoneNumber("603902776", "cz");
+$phone_number = new PhoneNumber("777777777", "cz");
 
 $message = new Viber($phone_number);
 
