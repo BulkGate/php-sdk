@@ -8,7 +8,9 @@ This particular configurator provides methods for setting all sender types
 
 ```php
 use BulkGate\Sdk\Country;
+use BulkGate\Sdk\MessageSender;
 use BulkGate\Sdk\Message\Component\SmsSender;
+use BulkGate\Sdk\Configurator\{SmsConfigurator, SmsCountryConfigurator, ViberConfigurator}
 ```
 
 ```php
@@ -93,7 +95,7 @@ $viber_configurator->configure($viber_message);
 ```php
 $viber_configurator = new ViberConfigurator('Sender');
 
-$sender = new BulkGate\Sdk\MessageSender($connection);
+$sender = new MessageSender($connection);
 
 $sender->addSenderConfigurator($viber_configurator);
 ```
