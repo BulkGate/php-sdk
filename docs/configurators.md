@@ -90,7 +90,7 @@ $viber_configurator->expiration(5_000 /*seconds*/);
 $viber_configurator->configure($viber_message);
 ```
 
-## Register Configurator to Sender
+## Register Configurator to Message Sender
 
 ```php
 $viber_configurator = new ViberConfigurator('Sender');
