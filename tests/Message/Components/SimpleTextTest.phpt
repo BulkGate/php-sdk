@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BulkGate\Sdk\Message\Components\Tests;
+namespace BulkGate\Sdk\Message\Component\Tests;
 
 /**
  * @author Lukáš Piják 2021 TOPefekt s.r.o.

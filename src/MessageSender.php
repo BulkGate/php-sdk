@@ -62,7 +62,6 @@ class MessageSender implements Sender
         $this->default_country = is_string($country) ? mb_strtolower($country) : null;
 
         return $this;
-
     }
 
 

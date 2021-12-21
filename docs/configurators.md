@@ -1,10 +1,7 @@
-# Configurators
+Configurators
+=============
 
 Configurators are classes that provides specialized interface for all message types
-
-## Sms configurator
-
-This particular configurator provides methods for setting all sender types
 
 ```php
 use BulkGate\Sdk\Country;
@@ -12,6 +9,11 @@ use BulkGate\Sdk\MessageSender;
 use BulkGate\Sdk\Message\Component\SmsSender;
 use BulkGate\Sdk\Configurator\{SmsConfigurator, SmsCountryConfigurator, ViberConfigurator}
 ```
+
+## Sms configurator
+
+This particular configurator provides methods for setting all sender types
+
 
 ```php
 $message = new Sms('420777777777', 'text_message');
