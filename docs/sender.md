@@ -8,7 +8,7 @@ BulkGate SMS - PHP SDK
 - [BulkGate portal](https://portal.bulkgate.com/) 
 - [BulkGate](https://www.bulkgate.com/)
 
-## Instalation
+## Basic instalation
 
 The easiest way to install [bulkgate/php-sdk](https://packagist.org/packages/bulkgate/php-sdk) into a project is by using [Composer](https://getcomposer.org/) via the command line.
 
@@ -38,6 +38,27 @@ $message = new Sms("420603902776", "test_text");
 ```
 
 The `send()` method will send a message `$message`.
+
+## Nette instalation
+
+You can also use DI container to install this SDK
+
+```neon
+extensions:
+	sdk: BulkGate\Sdk\DI\Extension
+
+sdk:
+	application_id: 0000
+	application_token: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	sender:
+		tag: 'sdk'
+		default_country: cz
+	configurator:
+		sms:
+			sender_id: gText
+			sender_id_value: 'Example'
+			unicode: true
+```
 
 ## API administration & tokens
 
