@@ -39,7 +39,7 @@ foreach($bulk_message as $message)
 
 You can basicaly treat the bulk message as an array
 
-```
+```php
 $bulk_message['sms'] = new Sms("420777777777", "text_message");
 
 isset(bulk_message);
