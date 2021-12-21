@@ -49,6 +49,8 @@ $sms_configurator->configure($message);
 
 ### Unicode
 ```php
+$message = new Sms("420777777777", "text_message");
+
 $sms_configurator->unicode();
 $sms_configurator->configure($message);
 ```
@@ -57,6 +59,8 @@ $sms_configurator->configure($message);
 This configurator allows you to set message country code
 
 ```php
+$message = new Sms("420777777777", "text_message");
+
 $country_configurator = new SmsCountryConfigurator(true);
 $country_configurator->addCountry("cz");
 $country_configurator->configure($message);
@@ -68,11 +72,13 @@ $country_configurator->configure($message);
 Viber configurator is a class that provides methods to configure all aspect of Viber message including buttons, images and expiration times
 
 ```php
+$viber_message = new Viber("420777777777");
+
 $viber_configurator = new ViberConfigurator("Sender");
 
 $viber_configurator->button("caption", "url");
 $viber_configurator->image("url");
 $viber_configurator->expiration(5000);
 
-$viber_configurator->configure($message);
+$viber_configurator->configure($viber_message);
 ```
