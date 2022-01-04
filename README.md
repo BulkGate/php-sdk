@@ -1,9 +1,13 @@
 BulkGate SMS - PHP SDK
 =============
 
+[![PHP](https://img.shields.io/packagist/php-v/bulkgate/php-sdk?logo=php&color=8892BF)](https://www.php.net/supported-versions.php)
 [![Downloads](https://img.shields.io/packagist/dt/bulkgate/php-sdk.svg)](https://packagist.org/packages/bulkgate/php-sdk)
 [![Latest Stable Version](https://img.shields.io/github/release/bulkgate/php-sdk.svg)](https://github.com/bulkgate/php-sdk/releases)
 [![License](https://img.shields.io/github/license/bulkgate/php-sdk.svg)](https://github.com/BulkGate/php-sdk/blob/master/LICENSE)
+[![Tests](https://github.com/BulkGate/php-sdk/workflows/Run%20tests/badge.svg)](https://github.com/BulkGate/php-sdk/actions/workflows/php.yml)
+
+
 
 - [BulkGate](https://www.bulkgate.com/)
 - [Helpdesk](https://help.bulkgate.com/)
