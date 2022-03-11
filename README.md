@@ -1,4 +1,4 @@
-BulkGate SMS - PHP SDK
+BulkGate SMS/Viber - PHP SDK
 =============
 
 [![PHP](https://img.shields.io/packagist/php-v/bulkgate/php-sdk?logo=php&color=8892BF)](https://www.php.net/supported-versions.php)
