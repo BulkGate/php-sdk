@@ -47,13 +47,14 @@ class MessageSenderTest extends TestCase
             Assert::same([
                 'application/json',
                 'transactional',
-                '{"application_id":5,"primary_channel":"sms","phone_number":"420777777777","country":"cz","schedule":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}},"tag":"451"}',
+                '{"application_id":5,"primary_channel":"sms","phone_number":"420777777777","country":"cz","schedule":1669129687,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}},"tag":"451"}',
             ], $request->encode('application/json', ['application_id' => 5]));
 
             return true;
         }))->andReturn(new Response('application/json', '{"data":{"status":"accepted","message_id":"sms-xxxtgkinpxu4","part_id":["sms-xxxtgkinpxu4"],"number":"420777777777","channel":"sms"}}'));
 
         $sms = new Sms('420777777777', 'test');
+        $sms->schedule = 1669129687;
 
         Assert::same($sms, $this->sender->send($sms));
 
