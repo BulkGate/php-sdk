@@ -34,6 +34,6 @@
   "scripts": {
     "tester": "tester tests -s -C",
     "coverage": "tester -C tests --coverage=coverage.html --coverage-src=src",
-    "phpstan": "phpstan analyse -c phpstan.neon"
+    "phpstan": "phpstan analyse -c phpstan.neon --xdebug"
   }
 }
