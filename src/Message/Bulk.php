@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -15,7 +15,7 @@ class Bulk extends Iterator implements Send
 
 
     /**
-     * @param array<int|string, Base> $messages
+     * @param array<array-key, Base> $messages
      */
     public function __construct(array $messages = [])
     {

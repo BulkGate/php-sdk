@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,11 +13,16 @@ use function iterator_to_array, json_encode;
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class IteratorTest extends TestCase
 {
     public object $iterator;
 
+    /**
+     * @var array<string, int>
+     */
     public array $test_array = [
         'test' => 1
     ];

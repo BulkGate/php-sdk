@@ -2,8 +2,3 @@ parameters:
 	level: 8
 	paths:
 		- src
-	ignoreErrors:
-		-
-			message: '~Class ReturnTypeWillChange is not an Attribute class\.~'
-			path: src/Utils/Iterator.php
-	reportUnmatchedIgnoredErrors: false

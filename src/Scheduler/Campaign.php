@@ -3,13 +3,13 @@
 namespace BulkGate\Sdk\Scheduler;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use DateTime;
 use BulkGate\Sdk\{InvalidStateException, Message\Base, Utils\Strict};
-use function mb_strtolower, max, in_array, implode;;
+use function mb_strtolower, max, in_array, implode;
 
 class Campaign implements Scheduler
 {
@@ -19,12 +19,21 @@ class Campaign implements Scheduler
 
     private DateTime $datetime_working;
 
+    /**
+     * @var int<0, max>
+     */
     private int $per_messages = 0;
 
-    private string $per_unit;
+    private string $per_unit = 'day';
 
-    private int $per_value;
+    /**
+     * @var positive-int
+     */
+    private int $per_value = 1;
 
+    /**
+     * @var int<0, max>
+     */
     private int $counter = 0;
 
 
@@ -44,6 +53,8 @@ class Campaign implements Scheduler
 
 
     /**
+     * @param int<0, max> $messages
+     * @param positive-int $per_value
      * @throws InvalidStateException
      */
     public function restriction(int $messages, int $per_value = 1, string $per_unit = 'day'): self

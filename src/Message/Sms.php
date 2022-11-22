@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -30,7 +30,7 @@ class Sms extends Base
 
 
     /**
-     * @param array<string|int|float> $variables
+     * @param array<string, string|int|float> $variables
      */
     public function text(string $text, array $variables = []): self
     {
@@ -47,7 +47,7 @@ class Sms extends Base
 
 
     /**
-     * @return array<mixed>
+     * @return array{primary_channel: string, phone_number: string, country: string|null, channels: array<string, Settings\Sms>}
      */
     public function jsonSerialize(): array
     {
@@ -55,6 +55,7 @@ class Sms extends Base
             'primary_channel' => Channel::SMS,
             'phone_number' => (string) $this->phone_number,
             'country' => $this->phone_number->iso,
+            'schedule' => $this->schedule,
             'channels' => [
                 Channel::SMS => $this->settings
             ]

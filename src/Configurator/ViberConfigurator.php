@@ -3,12 +3,11 @@
 namespace BulkGate\Sdk\Configurator;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\Utils\Strict;
-use BulkGate\Sdk\Message\{Base, Channel, Component\Button, Component\Image};
+use BulkGate\Sdk\{Utils\Strict, Message\Base, Message\Channel, Message\Component\Button, Message\Component\Image};
 
 class ViberConfigurator implements Configurator
 {
@@ -20,6 +19,9 @@ class ViberConfigurator implements Configurator
 
     private ?Image $image = null;
 
+    /**
+     * @var int<60, max>|null
+     */
     private ?int $expiration = null;
 
 
@@ -41,6 +43,9 @@ class ViberConfigurator implements Configurator
     }
 
 
+    /**
+     * @param int<60, max>|null $expiration
+     */
     public function expiration(?int $expiration): void
     {
         $this->expiration = $expiration;

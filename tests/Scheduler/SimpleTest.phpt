@@ -3,17 +3,18 @@
 namespace BulkGate\Sdk\Scheduler\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\Scheduler\Simple;
-use BulkGate\Sdk\Message\{Component\SimpleText, Sms};
+use BulkGate\{Sdk\Scheduler\Simple, Sdk\Message\Component\SimpleText, Sdk\Message\Sms};
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class SimpleTest extends TestCase
 {
     public function testSimple(): void

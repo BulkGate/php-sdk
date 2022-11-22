@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Configurator;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -68,6 +68,9 @@ class SmsConfigurator implements Configurator
     }
 
 
+    /**
+     * @param int<1, max> $id
+     */
     public function portalProfile(int $id): void
     {
         $this->sender_id = SmsSender::GATE_PORTAL_PROFILE;

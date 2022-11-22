@@ -3,18 +3,18 @@
 namespace BulkGate\Sdk\Scheduler\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\InvalidStateException;
-use BulkGate\Sdk\Scheduler\Campaign;
-use BulkGate\Sdk\Message\{Component\SimpleText, Sms};
+use BulkGate\{Sdk\InvalidStateException, Sdk\Scheduler\Campaign, Sdk\Message\Component\SimpleText, Sdk\Message\Sms};
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class CampaignTest extends TestCase
 {
     private const PER = 14;

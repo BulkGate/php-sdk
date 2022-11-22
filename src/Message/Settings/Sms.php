@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Settings;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -46,7 +46,7 @@ class Sms implements Settings
 
 
     /**
-     * @return array<mixed>
+     * @return array{text: string, variables: array<string, scalar|null>, sender_id: string, sender_id_value: string, unicode: bool}
      */
     public function jsonSerialize(): array
     {

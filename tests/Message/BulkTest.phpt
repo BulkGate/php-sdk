@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,7 +13,9 @@ use function json_encode;
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class BulkTest extends TestCase
 {
     public function testSimple(): void
@@ -26,7 +28,7 @@ class BulkTest extends TestCase
 
         $bulk['sms'] = $sms_with_key = new Sms('420777777779', 'test');
 
-        Assert::same('{"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gSystem","sender_id_value":"","unicode":false}}},{"primary_channel":"viber","phone_number":"420777777778","country":null,"channels":{"viber":{"text":"test","variables":[],"sender":null,"button_caption":"OK","button_url":"#","image":null,"image_zoom":false,"expiration":10800}}},{"primary_channel":"sms","phone_number":"420777777779","country":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gSystem","sender_id_value":"","unicode":false}}}]}', json_encode($bulk));
+        Assert::same('{"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":null,"schedule":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gSystem","sender_id_value":"","unicode":false}}},{"primary_channel":"viber","phone_number":"420777777778","country":null,"schedule":null,"channels":{"viber":{"text":"test","variables":[],"sender":null,"button_caption":"OK","button_url":"#","image":null,"image_zoom":false,"expiration":10800}}},{"primary_channel":"sms","phone_number":"420777777779","country":null,"schedule":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gSystem","sender_id_value":"","unicode":false}}}]}', json_encode($bulk));
 
         Assert::count(3, $bulk);
 

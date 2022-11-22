@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,7 +12,9 @@ use BulkGate\Sdk\Country;
 
 require __DIR__ . '/bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class CountryTest extends TestCase
 {
     public function testConstants(): void

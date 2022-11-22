@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Component;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -52,8 +52,8 @@ class PhoneNumber /* @php8 Stringable */
     protected static function formatNumber(string $number): string
     {
         return (string) preg_replace(
-            '~^0{2}~sD', '', (string) preg_replace(
-                '~[^0-9]~sD', '', trim($number)
+            '~^0{2}~', '', (string) preg_replace(
+                '~[^0-9]~', '', trim($number)
             )
         );
     }

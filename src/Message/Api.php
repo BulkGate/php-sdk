@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,21 +13,23 @@ class Api implements Send
 {
     use Strict;
 
-    /** @var array<mixed> */
+    /**
+     * @var array<array-key, mixed>
+     */
     private array $data;
 
 
     /**
-     * @param array<mixed> $data
+     * @param array<array-key, mixed> $data
      */
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
 
 
     /**
-     * @return array<mixed>
+     * @return array<array-key, mixed>
      */
     public function jsonSerialize(): array
     {

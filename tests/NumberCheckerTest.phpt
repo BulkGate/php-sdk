@@ -3,23 +3,19 @@
 namespace BulkGate\Sdk\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Mockery;
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\{
-    Connection\Connection,
-    Connection\Request,
-    Connection\Response,
-    Message\Component\PhoneNumber,
-    NumberChecker
-};
+use BulkGate\Sdk\{Connection\Connection, Connection\Request, Connection\Response, Message\Component\PhoneNumber, NumberChecker};
 
 require __DIR__ . '/bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class NumberCheckerTest extends TestCase
 {
     public function testChecker(): void

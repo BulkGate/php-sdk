@@ -3,17 +3,18 @@
 namespace BulkGate\Sdk\Message\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\TypeError;
-use BulkGate\Sdk\Message\{Settings\Viber as ViberSettings, Viber};
+use BulkGate\{Sdk\TypeError, Sdk\Message\Settings\Viber as ViberSettings, Sdk\Message\Viber};
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class ViberTest extends TestCase
 {
     public function testSimple(): void

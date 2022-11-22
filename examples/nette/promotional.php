@@ -1,20 +1,11 @@
 <?php declare(strict_types=1);
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\{
-    Message\Bulk,
-    Message\Component\Button,
-    Message\Component\Image,
-    Message\Component\SimpleText,
-    Message\MultiChannel,
-    Message\Sms,
-    Message\Viber,
-    Sender
-};
+use BulkGate\{Sdk\Message\Bulk, Sdk\Message\Component\Button, Sdk\Message\Component\Image, Sdk\Message\Component\SimpleText, Sdk\Message\MultiChannel, Sdk\Message\Sms, Sdk\Message\Viber, Sdk\Sender};
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 require __DIR__ . '/DIContainerFactory.php';

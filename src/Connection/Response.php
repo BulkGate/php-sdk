@@ -3,25 +3,30 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\ApiException;
-use BulkGate\Sdk\Utils\{CompressJson, Json, Strict};
 use Throwable;
+use BulkGate\{Sdk\ApiException, Sdk\Utils\CompressJson, Sdk\Utils\Json, Sdk\Utils\Strict};
 
 class Response
 {
     use Strict;
 
-    /** @var array<mixed> */
+    /**
+     * @var array<array-key, mixed>
+     */
     private array $data = [];
 
-    /** @var array<callable> */
+    /**
+     * @var array<string, callable>
+     */
     public array $decoders = [];
 
-    /** @var array<mixed>|null */
+    /**
+     * @var array<string, mixed>|null
+     */
     private ?array $error = null;
 
 
@@ -84,7 +89,7 @@ class Response
 
 
     /**
-     * @return array<mixed>
+     * @return array<array-key, mixed>
      */
     public function getData(): array
     {

@@ -3,11 +3,12 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use BulkGate\Sdk\{Message\Send, Utils\CompressJson, Utils\Json, Utils\Strict};
+use function array_merge;
 
 class Request
 {
@@ -17,15 +18,19 @@ class Request
 
     private Send $send;
 
-    /** @var array<mixed> */
+    /**
+     * @var array<array-key, mixed>
+     */
     private array $parameters;
 
-    /** @var array<callable> */
+    /**
+     * @var array<array-key, callable>
+     */
     public array $encoders = [];
 
 
     /**
-     * @param array<mixed> $parameters
+     * @param array<array-key, mixed> $parameters
      */
     public function __construct(string $action, Send $send, array $parameters = [])
     {
@@ -38,8 +43,8 @@ class Request
 
 
     /**
-     * @param array<mixed> $data
-     * @return array<mixed>
+     * @param array<array-key, mixed> $data
+     * @return array{string, string, array<array-key, mixed>}
      */
     public function encode(string $content_type = 'application/json', array $data = []): array
     {

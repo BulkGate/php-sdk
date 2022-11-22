@@ -3,19 +3,19 @@
 namespace BulkGate\Sdk\Message\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\ChannelException;
-use BulkGate\Sdk\Message\MultiChannel;
-use BulkGate\Sdk\Message\Component\{Button, Image, PhoneNumber, SimpleText};
+use BulkGate\{Sdk\ChannelException, Sdk\Message\MultiChannel, Sdk\Message\Component\Button, Sdk\Message\Component\Image, Sdk\Message\Component\PhoneNumber, Sdk\Message\Component\SimpleText};
 use function json_decode, json_encode;
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class MultiChannelTest extends TestCase
 {
     public function testSimple(): void

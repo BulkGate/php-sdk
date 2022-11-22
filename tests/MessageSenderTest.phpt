@@ -3,33 +3,24 @@
 namespace BulkGate\Sdk\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use Tester\{Assert, TestCase};
-use BulkGate\Sdk\{
-    Configurator\SmsConfigurator,
-    Country,
-    InvalidStateException,
-    Message\Api,
-    Message\Bulk,
-    Message\Sms,
-    MessageSender,
-    Scheduler\None,
-    SenderException,
-    Connection\Connection,
-    Connection\Request,
-    Connection\Response
-};
 use Mockery;
+use Tester\{Assert, TestCase};
+use BulkGate\Sdk\{Configurator\SmsConfigurator, Connection\Connection, Connection\Request, Connection\Response, Country, InvalidStateException, Message\Api, Message\Bulk, Message\Sms, MessageSender, Scheduler\None, SenderException};
 
 require __DIR__ . '/bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class MessageSenderTest extends TestCase
 {
-    /** @var Connection|Mockery\Mock $connection */
+    /**
+     * @var Connection|Mockery\Mock $connection
+     */
     private $connection;
 
     private MessageSender $sender;
@@ -56,7 +47,7 @@ class MessageSenderTest extends TestCase
             Assert::same([
                 'application/json',
                 'transactional',
-                '{"application_id":5,"primary_channel":"sms","phone_number":"420777777777","country":"cz","channels":{"sms":{"text":"test","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}},"tag":"451"}',
+                '{"application_id":5,"primary_channel":"sms","phone_number":"420777777777","country":"cz","schedule":null,"channels":{"sms":{"text":"test","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}},"tag":"451"}',
             ], $request->encode('application/json', ['application_id' => 5]));
 
             return true;
@@ -78,7 +69,7 @@ class MessageSenderTest extends TestCase
             Assert::same([
                 'application/json',
                 'promotional',
-                '{"application_id":5,"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":"cz","channels":{"sms":{"text":"test1","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}},{"primary_channel":"sms","phone_number":"420777777778","country":"cz","channels":{"sms":{"text":"test2","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}}],"tag":"451"}',
+                '{"application_id":5,"messages":[{"primary_channel":"sms","phone_number":"420777777777","country":"cz","schedule":null,"channels":{"sms":{"text":"test1","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}},{"primary_channel":"sms","phone_number":"420777777778","country":"cz","schedule":null,"channels":{"sms":{"text":"test2","variables":[],"sender_id":"gText","sender_id_value":"BulkGate","unicode":true}}}],"tag":"451"}',
             ], $request->encode('application/json', ['application_id' => 5]));
 
             return true;

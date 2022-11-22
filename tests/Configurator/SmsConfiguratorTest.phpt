@@ -3,20 +3,18 @@
 namespace BulkGate\Sdk\Configurator\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\Configurator\PrefixMap;
-use BulkGate\Sdk\Configurator\SmsConfigurator;
-use BulkGate\Sdk\Message\Component\SimpleText;
-use BulkGate\Sdk\Message\MultiChannel;
-use BulkGate\Sdk\Message\Sms;
+use BulkGate\{Sdk\Configurator\SmsConfigurator, Sdk\Message\Component\SimpleText, Sdk\Message\MultiChannel, Sdk\Message\Sms};
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class SmsConfiguratorTest extends TestCase
 {
     private ?Sms $sms = null;

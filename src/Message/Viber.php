@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -14,7 +14,6 @@ use BulkGate\{
     Sdk\TypeError,
     Sdk\Utils\Strict
 };
-use function is_string;
 
 class Viber extends Base
 {
@@ -28,6 +27,7 @@ class Viber extends Base
     /**
      * @param Component\PhoneNumber|string $phone_number
      * @param Component\SimpleText|string|null $text
+     * @param int<60, max> $timeout
      * @throws TypeError
      */
     public function __construct($phone_number, $text = null, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = Settings\Viber::DEFAULT_RESEND_TIMEOUT)
@@ -38,7 +38,7 @@ class Viber extends Base
 
 
     /**
-     * @param array<string|int|float> $variables
+     * @param array<string, string|int|float> $variables
      */
     public function text(string $text, array $variables = []): self
     {
@@ -55,7 +55,7 @@ class Viber extends Base
 
 
     /**
-     * @return array<mixed>
+     * @return array{primary_channel: string, phone_number: string, country: string|null, channels: array<string, Settings\Viber>}
      */
     public function jsonSerialize(): array
     {
@@ -63,6 +63,7 @@ class Viber extends Base
             'primary_channel' => Channel::VIBER,
             'phone_number' => (string) $this->phone_number,
             'country' => $this->phone_number->iso,
+            'schedule' => $this->schedule,
             'channels' => [
                 Channel::VIBER => $this->settings
             ]

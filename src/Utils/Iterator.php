@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,14 +12,16 @@ use BulkGate\Sdk\Message\Base;
 use function array_values, count;
 
 /**
- * @implements IteratorAggregate<int|string, Base>
- * @implements ArrayAccess<int|string, Base>
+ * @implements IteratorAggregate<array-key, Base>
+ * @implements ArrayAccess<array-key, Base>
  */
 abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
     use Strict;
 
-    /** @var array<mixed> */
+    /**
+     * @var array<array-key, mixed>
+     */
     protected array $list = [];
 
 
@@ -33,7 +35,7 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
 
 
     /**
-     * @param mixed $offset
+     * @param array-key $offset
      * @return mixed|null
      */
     #[\ReturnTypeWillChange]
@@ -44,7 +46,7 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
 
 
     /**
-     * @param mixed $offset
+     * @param array-key|null $offset
      * @param mixed $value
      */
     public function offsetSet($offset, $value): void
@@ -54,7 +56,7 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
 
 
     /**
-     * @param mixed $offset
+     * @param array-key $offset
      */
     public function offsetUnset($offset): void
     {

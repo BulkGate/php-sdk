@@ -7,7 +7,7 @@
   "authors": [
     {
       "name": "TOPefekt s.r.o.",
-      "homepage": "http://www.topefekt.com"
+      "homepage": "https://www.bulkgate.com"
     },
     {
       "name": "Lukáš Piják",
@@ -22,15 +22,15 @@
   },
   "require-dev": {
     "nette/tester": "~2.0",
-    "tracy/tracy": "^2.4",
-    "phpstan/phpstan": "^1.2",
-    "mockery/mockery": "^1.4",
+    "tracy/tracy": "^2.9",
+    "phpstan/phpstan": "^1.9",
+    "mockery/mockery": "^1.5",
     "nette/di": "^3.0"
   },
   "autoload": {
     "classmap": ["src/"]
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "RC",
   "scripts": {
     "tester": "tester tests -s -C",
     "coverage": "tester -C tests --coverage=coverage.html --coverage-src=src",

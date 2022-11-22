@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,7 +13,7 @@ trait Strict
      * @return mixed
      * @throws StrictException
      */
-    public function &__get(string $name)
+    public function __get(string $name)
     {
         throw new StrictException('You can\'t read from undeclared property ' . __CLASS__ . '::$' . $name);
     }
@@ -45,7 +45,7 @@ trait Strict
 
 
     /**
-     * @param array<mixed> $arguments
+     * @param array<array-key, mixed> $arguments
      * @return mixed
      * @throws StrictException
      */
@@ -56,7 +56,7 @@ trait Strict
 
 
     /**
-     * @param array<mixed> $arguments
+     * @param array<array-key, mixed> $arguments
      * @return mixed
      * @throws StrictException
      */

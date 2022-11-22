@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -38,7 +38,7 @@ class Helpers
 
     /**
      * @param Component\SimpleText|string|null|mixed $text
-     * @param array<string|float|int> $variables
+     * @param array<string, string|float|int> $variables
      * @throws TypeError
      */
     public static function createText($text, array $variables = []): ?SimpleText

@@ -3,17 +3,18 @@
 namespace BulkGate\Sdk\Message\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\TypeError;
-use BulkGate\Sdk\Message\{Component\PhoneNumber, Component\SimpleText, Helpers};
+use BulkGate\{Sdk\TypeError, Sdk\Message\Component\PhoneNumber, Sdk\Message\Component\SimpleText, Sdk\Message\Helpers};
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class HelpersTest extends TestCase
 {
     public function testCreateNumber(): void

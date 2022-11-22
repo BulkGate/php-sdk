@@ -4,7 +4,7 @@ namespace BulkGate\Sdk\Message\Settings;
 
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 

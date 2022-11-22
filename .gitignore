@@ -1,6 +1,8 @@
 .idea/
 vendor/
 composer.lock
-test.php
-src/Connection/ConnectionMock.php
 coverage.html
+tests/**/output/*.actual
+tests/**/output/*.expected
+test.php
+example.php

@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,11 +12,16 @@ use BulkGate\Sdk\Utils\CompressJson;
 
 require __DIR__ . '/../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class CompressJsonTest extends TestCase
 {
     public object $iterator;
 
+    /**
+     * @var array<string, int>
+     */
     public array $test_array = [
         'test' => 1
     ];

@@ -3,18 +3,19 @@
 namespace BulkGate\Sdk\Message\Settings\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\Sdk\Message\Settings\Viber;
-use BulkGate\Sdk\Message\Component\{Button, Image, SimpleText};
+use BulkGate\{Sdk\Message\Settings\Viber, Sdk\Message\Component\Button, Sdk\Message\Component\Image, Sdk\Message\Component\SimpleText};
 use function json_encode;
 
 require __DIR__ . '/../../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class ViberTest extends TestCase
 {
     public function testSimple(): void

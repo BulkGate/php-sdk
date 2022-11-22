@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Component\Tests;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,7 +12,9 @@ use BulkGate\Sdk\Message\Component\SimpleText;
 
 require __DIR__ . '/../../bootstrap.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class SimpleTextTest extends TestCase
 {
     public function testSimple(): void

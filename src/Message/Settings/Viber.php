@@ -3,17 +3,11 @@
 namespace BulkGate\Sdk\Message\Settings;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\{
-    Message\Channel,
-    Utils\Strict,
-    Message\Component\Button,
-    Message\Component\Image,
-    Message\Component\SimpleText
-};
+use BulkGate\{Sdk\Message\Channel, Sdk\Message\Component\Button, Sdk\Message\Component\Image, Sdk\Message\Component\SimpleText, Sdk\Utils\Strict};
 use function array_pad;
 
 class Viber implements Settings
@@ -30,9 +24,15 @@ class Viber implements Settings
 
     public ?Image $image;
 
+    /**
+     * @var int<60, max>|null
+     */
     public ?int $timeout;
 
 
+    /**
+     * @param int<60, max>|null $timeout
+     */
     public function __construct(SimpleText $text, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = null)
     {
         $this->text = $text;
@@ -58,7 +58,7 @@ class Viber implements Settings
 
 
     /**
-     * @return array<mixed>
+     * @return array{text: string, variables: array<string, scalar|null>, sender: string|null, button_caption: string, button_url: string|null, image: string|null, image_zoom: bool, expiration: int}
      */
     public function jsonSerialize(): array
     {

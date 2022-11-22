@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -27,6 +27,7 @@ class Json
         {
             throw new JsonException(json_last_error_msg(), $error);
         }
+
         return (string) $json;
     }
 
@@ -43,6 +44,7 @@ class Json
         {
             throw new JsonException(json_last_error_msg(), $error);
         }
+
         return $value;
     }
 }

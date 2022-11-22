@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -23,8 +23,8 @@ class NumberChecker
 
 
     /**
-     * @param array<string|Message\Component\PhoneNumber> $numbers
-     * @return array<string|int, array<string|bool|int>>
+     * @param array<array-key, string|Message\Component\PhoneNumber> $numbers
+     * @return array<array-key, array{phone_number: string, valid: bool, country: string|null, call_prefix: int|null, network_code: string|null, network_name: string}>
      * @throws ApiException
      */
     public function check(array $numbers, ?string $iso = null): array

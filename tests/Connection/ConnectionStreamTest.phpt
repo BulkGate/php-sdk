@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection\Test;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,7 +13,9 @@ use BulkGate\Sdk\{Connection\ConnectionStream, Connection\Request, Message\Api, 
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/FileFunctionsMock.php';
 
-/** @testCase */
+/**
+ * @testCase
+ */
 class ConnectionStreamTest extends TestCase
 {
     public function setUp()

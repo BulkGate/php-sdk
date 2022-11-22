@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -21,7 +21,9 @@ abstract class Base implements Message, Send
 
     public ?string $message_id = null;
 
-    /** @var array<int, string>|null */
+    /**
+     * @var array<int, string>|null
+     */
     public ?array $part_id = null;
 
     public ?string $error = null;
@@ -37,7 +39,9 @@ abstract class Base implements Message, Send
     }
 
 
-    /** @param mixed ...$parameters */
+    /**
+     * @param mixed ...$parameters
+     */
     abstract public function configure(...$parameters): void;
 
 

@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -21,7 +21,9 @@ class MessageSender implements Sender
 
     private string $tag = '';
 
-    /** @var array<Configurator\Configurator> */
+    /**
+     * @var array<string, Configurator\Configurator>
+     */
     private array $configurators = [];
 
 
@@ -164,9 +166,9 @@ class MessageSender implements Sender
         {
             if (isset($this->configurators[$channel]))
             {
-                $this->configurators[$channel]->configure($message);
-
                 $message->phone_number->iso ??= $this->default_country;
+
+                $this->configurators[$channel]->configure($message);
             }
         }
     }

@@ -3,15 +3,12 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{
-    Sdk\ChannelException,
-    Sdk\Message\Settings,
-    Sdk\Utils\Strict
-};
+use BulkGate\{Sdk\ChannelException, Sdk\Message\Settings, Sdk\Utils\Strict};
+use function get_class, array_keys;
 
 class MultiChannel extends Base
 {
@@ -19,11 +16,13 @@ class MultiChannel extends Base
 
     public ?string $primary_channel = null;
 
-    /** @var array<Settings\Settings> */
+    /**
+     * @var array<string, Settings\Settings>
+     */
     public array $channels = [];
 
 
-    private const CHANNEL_MAP = [
+    private const ChannelMap = [
         Settings\Sms::class => Channel::SMS,
         Settings\Viber::class => Channel::VIBER,
     ];
@@ -37,6 +36,9 @@ class MultiChannel extends Base
     }
 
 
+    /**
+     * @param int<60, max>|null $timeout
+     */
     public function viber(Component\SimpleText $text, ?string $sender = null, ?Component\Button $button = null, ?Component\Image $image = null, ?int $timeout = null): self
     {
         $this->channel(new Settings\Viber($text, $sender, $button, $image, $timeout));
@@ -79,7 +81,7 @@ class MultiChannel extends Base
     {
         $class = get_class($settings); /** @php8 $settings::class */
 
-        $channel = self::CHANNEL_MAP[$class] ?? null;
+        $channel = self::ChannelMap[$class] ?? null;
 
         if ($channel !== null)
         {
@@ -93,12 +95,12 @@ class MultiChannel extends Base
 
 
     /**
-     * @return array<mixed>
+     * @return array{primary_channel: string, phone_number: string, country: string|null, channels: array<string, Settings\Settings>}
      */
     public function jsonSerialize(): array
     {
         return [
-            'primary_channel' => $this->primary_channel,
+            'primary_channel' => $this->primary_channel ?? Channel::SMS,
             'phone_number' => (string) $this->phone_number,
             'country' => $this->phone_number->iso,
             'schedule' => $this->schedule,

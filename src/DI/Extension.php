@@ -3,24 +3,13 @@
 namespace BulkGate\Sdk\DI;
 
 /**
- * @author Lukáš Piják 2021 TOPefekt s.r.o.
+ * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use stdClass;
-use Nette\DI\CompilerExtension;
-use Nette\Schema\{Expect, Schema};
-use BulkGate\Sdk\{
-    Configurator\SmsConfigurator,
-    Configurator\SmsCountryConfigurator,
-    Configurator\ViberConfigurator,
-    Connection\Connection,
-    Connection\ConnectionStream,
-    Message\Component\SmsSender,
-    MessageSender,
-    NumberChecker,
-    Sender
-};
+use Nette\{DI\CompilerExtension, Schema\Expect, Schema\Schema};
+use BulkGate\Sdk\{Configurator\SmsConfigurator, Configurator\SmsCountryConfigurator, Configurator\ViberConfigurator, Connection\Connection, Connection\ConnectionStream, CreditChecker, Message\Component\SmsSender, MessageSender, NumberChecker, Sender};
 use function count;
 
 /**
@@ -138,5 +127,8 @@ class Extension extends CompilerExtension
 
         $builder->addDefinition($this->prefix('number.checker'))
             ->setFactory(NumberChecker::class);
+
+        $builder->addDefinition($this->prefix('credit.checker'))
+            ->setFactory(CreditChecker::class);
     }
 }
