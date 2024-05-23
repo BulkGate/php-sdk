@@ -11,55 +11,55 @@ use BulkGate\Sdk\{Utils\Strict, Message\Base, Message\Channel, Message\Component
 
 class ViberConfigurator implements Configurator
 {
-    use Strict;
+	use Strict;
 
-    private string $sender;
+	public string $sender;
 
-    private ?Button $button = null;
+	public Button|null $button = null;
 
-    private ?Image $image = null;
+	public Image|null $image = null;
 
-    /**
-     * @var int<60, max>|null
-     */
-    private ?int $expiration = null;
-
-
-    public function __construct(string $sender)
-    {
-        $this->sender = $sender;
-    }
+	/**
+	 * @var int<60, max>|null
+	 */
+	public int|null $expiration = null;
 
 
-    public function button(string $caption, string $url): void
-    {
-        $this->button = new Button($caption, $url);
-    }
+	public function __construct(string $sender)
+	{
+		$this->sender = $sender;
+	}
 
 
-    public function image(string $url, bool $zoom = false): void
-    {
-        $this->image = new Image($url, $zoom);
-    }
+	public function button(string $caption, string $url): void
+	{
+		$this->button = new Button($caption, $url);
+	}
 
 
-    /**
-     * @param int<60, max>|null $expiration
-     */
-    public function expiration(?int $expiration): void
-    {
-        $this->expiration = $expiration;
-    }
+	public function image(string $url, bool $zoom = false): void
+	{
+		$this->image = new Image($url, $zoom);
+	}
 
 
-    public function configure(Base $message): void
-    {
-        $message->configure(Channel::VIBER, $this->sender, $this->button, $this->image, $this->expiration);
-    }
+	/**
+	 * @param int<60, max>|null $expiration
+	 */
+	public function expiration(?int $expiration): void
+	{
+		$this->expiration = $expiration;
+	}
 
 
-    public function getChannel(): string
-    {
-        return Channel::VIBER;
-    }
+	public function configure(Base $message): void
+	{
+		$message->configure(Channel::viber, $this->sender, $this->expiration);
+	}
+
+
+	public function getChannel(): string
+	{
+		return Channel::viber;
+	}
 }

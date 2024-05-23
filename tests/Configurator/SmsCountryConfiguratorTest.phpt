@@ -17,65 +17,65 @@ require __DIR__ . '/../bootstrap.php';
  */
 class SmsCountryConfiguratorTest extends TestCase
 {
-    private ?Sms $sms = null;
+	private Sms|null $sms = null;
 
-    public function setUp()
-    {
-        $this->sms = new Sms('420608777777', 'test');
-    }
-
-
-    public function testConstruct(): void
-    {
-        $configurator = new SmsCountryConfigurator(true);
-
-        $configurator->configure($this->sms);
-
-        Assert::same(['gGate1', '', true], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
+	public function setUp()
+	{
+		$this->sms = new Sms('420608777777', 'test');
+	}
 
 
-    public function testAdd(): void
-    {
-        $configurator = new SmsCountryConfigurator();
+	public function testConstruct(): void
+	{
+		$configurator = new SmsCountryConfigurator(true);
 
-        $configurator
-            ->addCountry('cz', 'gGate2', 'BulkGate')
-            ->addCountry('sk', 'gGate4', 'TOPefekt');
+		$configurator->configure($this->sms);
 
-        $configurator->configure($this->sms);
-
-        Assert::same(['gGate2', 'BulkGate', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-
-        $sk_message = new Sms('421777777777', 'test');
-
-        $configurator->configure($sk_message);
-
-        Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
-
-        $configurator->removeCountry('sk');
-
-        $configurator->unicode(true);
-
-        $configurator->configure($sk_message);
-
-        // Restrict rewrite test
-        Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
-
-        $second_message = new Sms('421777777777', 'test');
-
-        $configurator->configure($second_message);
-
-        Assert::same(['gGate1', '', true], [$second_message->settings->sender_id, $second_message->settings->sender_id_value, $second_message->settings->unicode]);
-    }
+		Assert::same(['gGate1', '', true], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
 
 
-    public function testChannel(): void
-    {
-        $configurator = new SmsCountryConfigurator();
+	public function testAdd(): void
+	{
+		$configurator = new SmsCountryConfigurator();
 
-        Assert::same('sms', $configurator->getChannel());
-    }
+		$configurator
+			->addCountry('cz', 'gGate2', 'BulkGate')
+			->addCountry('sk', 'gGate4', 'TOPefekt');
+
+		$configurator->configure($this->sms);
+
+		Assert::same(['gGate2', 'BulkGate', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+
+		$sk_message = new Sms('421777777777', 'test');
+
+		$configurator->configure($sk_message);
+
+		Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
+
+		$configurator->removeCountry('sk');
+
+		$configurator->unicode(true);
+
+		$configurator->configure($sk_message);
+
+		// Restrict rewrite test
+		Assert::same(['gGate4', 'TOPefekt', false], [$sk_message->settings->sender_id, $sk_message->settings->sender_id_value, $sk_message->settings->unicode]);
+
+		$second_message = new Sms('421777777777', 'test');
+
+		$configurator->configure($second_message);
+
+		Assert::same(['gGate1', '', true], [$second_message->settings->sender_id, $second_message->settings->sender_id_value, $second_message->settings->unicode]);
+	}
+
+
+	public function testChannel(): void
+	{
+		$configurator = new SmsCountryConfigurator();
+
+		Assert::same('sms', $configurator->getChannel());
+	}
 }
 
 (new SmsCountryConfiguratorTest())->run();

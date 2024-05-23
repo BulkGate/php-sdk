@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Message\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\{Sdk\TypeError, Sdk\Message\Settings\Sms as SmsSettings, Sdk\Message\Sms};
+use BulkGate\{Sdk\Message\Settings\Sms as SmsSettings, Sdk\Message\Sms};
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -19,9 +19,6 @@ class SmsTest extends TestCase
 {
     public function testSimple(): void
     {
-        Assert::exception(fn () => new Sms(false, false), TypeError::class, 'Phone number must be \'BulkGate\Sdk\Message\Component\PhoneNumber|string\'');
-        Assert::exception(fn () => new Sms('4206087777777', false), TypeError::class, 'Text must be \'BulkGate\Sdk\Message\Component\SimpleText|string|null\'');
-
         $sms = new Sms('420777777777', 'test');
 
         Assert::type(SmsSettings::class, $sms->settings);

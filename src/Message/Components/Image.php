@@ -11,16 +11,16 @@ use BulkGate\Sdk\Utils\Strict;
 
 class Image
 {
-    use Strict;
+	use Strict;
 
-    public string $url;
+	public string $url;
 
-    public bool $zoom;
+	public bool $zoom;
 
 
-    public function __construct(string $url, bool $zoom = false)
-    {
-        $this->url = $url;
-        $this->zoom = $zoom;
-    }
+	public function __construct(string $url, bool $zoom = false)
+	{
+		$this->url = $url;
+		$this->zoom = $zoom;
+	}
 }

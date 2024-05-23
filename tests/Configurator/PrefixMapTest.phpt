@@ -17,12 +17,12 @@ require __DIR__ . '/../bootstrap.php';
  */
 class PrefixMapTest extends TestCase
 {
-    public function testConstants(): void
-    {
-        Assert::same('us', PrefixMap::PREFIX_TO_ISO['1']);
-        Assert::same('cz', PrefixMap::PREFIX_TO_ISO['420']);
-        Assert::same('ru', PrefixMap::PREFIX_TO_ISO['7']);
-    }
+	public function testConstants(): void
+	{
+		Assert::same('us', PrefixMap::PREFIX_TO_ISO['1']);
+		Assert::same('cz', PrefixMap::PREFIX_TO_ISO['420']);
+		Assert::same('ru', PrefixMap::PREFIX_TO_ISO['7']);
+	}
 }
 
 (new PrefixMapTest())->run();

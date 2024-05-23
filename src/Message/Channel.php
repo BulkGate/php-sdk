@@ -6,14 +6,13 @@ namespace BulkGate\Sdk\Message;
  * @author Lukáš Piják 2022 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-
-use BulkGate\Sdk\Utils\Strict;
-
-class Channel
+enum Channel
 {
-    use Strict;
+	public const SMS = 'sms';
 
-    public const SMS = 'sms';
+	public const viber = 'viber';
 
-    public const VIBER = 'viber';
+	public const RCS = 'rcs';
+
+	public const whatsApp = 'whatsapp';
 }

@@ -17,70 +17,70 @@ require __DIR__ . '/../bootstrap.php';
  */
 class ResponseTest extends TestCase
 {
-    public function testBasic(): void
-    {
-        $request = new Response('application/json', '{"data":{"status":"accepted","message_id":"sms-xxxtgkinpxu4","part_id":["sms-xxxtgkinpxu4"],"number":"420777777777","channel":"sms"}}');
+	public function testBasic(): void
+	{
+		$request = new Response('application/json', '{"data":{"status":"accepted","message_id":"sms-xxxtgkinpxu4","part_id":["sms-xxxtgkinpxu4"],"number":"420777777777","channel":"sms"}}');
 
-        Assert::same([
-            'status' => 'accepted',
-            'message_id' => 'sms-xxxtgkinpxu4',
-            'part_id' => ['sms-xxxtgkinpxu4'],
-            'number' => '420777777777',
-            'channel' => 'sms',
-        ], $request->getData());
+		Assert::same([
+			'status' => 'accepted',
+			'message_id' => 'sms-xxxtgkinpxu4',
+			'part_id' => ['sms-xxxtgkinpxu4'],
+			'number' => '420777777777',
+			'channel' => 'sms',
+		], $request->getData());
 
-        Assert::true($request->isSuccess());
+		Assert::true($request->isSuccess());
 
-        $request->checkException();
-    }
-
-
-    public function testBulk(): void
-    {
-        $request = new Response('application/json', '{"data":{"response": ["ok"]}}');
-
-        Assert::same(['ok'], $request->getData());
-
-        Assert::true($request->isSuccess());
-
-        $request->checkException();
-    }
+		$request->checkException();
+	}
 
 
-    public function testError(): void
-    {
-        $request = new Response('application/json', '{"error": "error_message", "type": "error_type", "code": 400, "detail": null}');
+	public function testBulk(): void
+	{
+		$request = new Response('application/json', '{"data":{"response": ["ok"]}}');
 
-        Assert::same([], $request->getData());
+		Assert::same(['ok'], $request->getData());
 
-        Assert::false($request->isSuccess());
+		Assert::true($request->isSuccess());
 
-        Assert::exception(fn () => $request->checkException(), ApiException::class, 'error_message');
-    }
-
-
-    public function testInvalid(): void
-    {
-        $request = new Response('application/json', '{"code": 400, "detail": null}');
-
-        Assert::same([], $request->getData());
-
-        Assert::false($request->isSuccess());
-
-        Assert::exception(fn () => $request->checkException(), ApiException::class, 'Unknown API Response');
-    }
+		$request->checkException();
+	}
 
 
-    public function testMalformed(): void
-    {
-        $request = new Response('application/json', '}');
+	public function testError(): void
+	{
+		$request = new Response('application/json', '{"error": "error_message", "type": "error_type", "code": 400, "detail": null}');
 
-        Assert::same([], $request->getData());
+		Assert::same([], $request->getData());
 
-        Assert::false($request->isSuccess());
+		Assert::false($request->isSuccess());
 
-        Assert::exception(fn () => $request->checkException(), ApiException::class, 'Server response is malformed.');
-    }
+		Assert::exception(fn() => $request->checkException(), ApiException::class, 'error_message');
+	}
+
+
+	public function testInvalid(): void
+	{
+		$request = new Response('application/json', '{"code": 400, "detail": null}');
+
+		Assert::same([], $request->getData());
+
+		Assert::false($request->isSuccess());
+
+		Assert::exception(fn() => $request->checkException(), ApiException::class, 'Unknown API Response');
+	}
+
+
+	public function testMalformed(): void
+	{
+		$request = new Response('application/json', '}');
+
+		Assert::same([], $request->getData());
+
+		Assert::false($request->isSuccess());
+
+		Assert::exception(fn() => $request->checkException(), ApiException::class, 'Server response is malformed.');
+	}
 }
 
 (new ResponseTest())->run();

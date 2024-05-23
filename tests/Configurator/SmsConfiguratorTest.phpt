@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Configurator\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\{Sdk\Configurator\SmsConfigurator, Sdk\Message\Component\SimpleText, Sdk\Message\MultiChannel, Sdk\Message\Sms};
+use BulkGate\{Sdk\Configurator\SmsConfigurator, Sdk\Message\Component\SimpleText, Sdk\Message\Component\Viber\Variant, Sdk\Message\MultiChannel, Sdk\Message\Sms};
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -17,127 +17,127 @@ require __DIR__ . '/../bootstrap.php';
  */
 class SmsConfiguratorTest extends TestCase
 {
-    private ?Sms $sms = null;
+	private Sms|null $sms = null;
 
-    public function setUp()
-    {
-        $this->sms = new Sms('420608777777', 'test');
-    }
-
-
-    public function testConstruct(): void
-    {
-        $configurator = new SmsConfigurator();
-
-        $configurator->configure($this->sms);
-
-        Assert::same(['gSystem', ''], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value]);
-    }
+	public function setUp()
+	{
+		$this->sms = new Sms('420608777777', 'test');
+	}
 
 
-    public function testSpecificConstruct(): void
-    {
-        $configurator = new SmsConfigurator('gText', 'BulkGate', true);
+	public function testConstruct(): void
+	{
+		$configurator = new SmsConfigurator();
 
-        $configurator->configure($this->sms);
+		$configurator->configure($this->sms);
 
-        Assert::same(['gText', 'BulkGate', true], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
-
-
-    public function testSystemNumber(): void
-    {
-        $configurator = new SmsConfigurator();
-
-        $configurator->systemNumber();
-
-        $configurator->configure($this->sms);
-
-        Assert::same(['gSystem', '', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
+		Assert::same(['gSystem', ''], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value]);
+	}
 
 
-    public function testShortCode(): void
-    {
-        $configurator = new SmsConfigurator();
+	public function testSpecificConstruct(): void
+	{
+		$configurator = new SmsConfigurator('gText', 'BulkGate', true);
 
-        $configurator->shortCode();
+		$configurator->configure($this->sms);
 
-        $configurator->configure($this->sms);
-
-        Assert::same(['gShort', '', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
+		Assert::same(['gText', 'BulkGate', true], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
 
 
-    public function testTextSender(): void
-    {
-        $configurator = new SmsConfigurator();
+	public function testSystemNumber(): void
+	{
+		$configurator = new SmsConfigurator();
 
-        $configurator->textSender('TOPefekt');
+		$configurator->systemNumber();
 
-        $configurator->configure($this->sms);
+		$configurator->configure($this->sms);
 
-        Assert::same(['gText', 'TOPefekt', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
-
-
-    public function testOwnNumber(): void
-    {
-        $configurator = new SmsConfigurator();
-
-        $configurator->numericSender('420777777777');
-
-        $configurator->configure($this->sms);
-
-        Assert::same(['gOwn', '420777777777', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
+		Assert::same(['gSystem', '', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
 
 
-    public function testMobileConnect(): void
-    {
-        $configurator = new SmsConfigurator();
+	public function testShortCode(): void
+	{
+		$configurator = new SmsConfigurator();
 
-        $configurator->mobileConnect('XXXXXX');
+		$configurator->shortCode();
 
-        $configurator->configure($this->sms);
+		$configurator->configure($this->sms);
 
-        Assert::same(['gMobile', 'XXXXXX', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
-
-
-    public function testPortalProfile(): void
-    {
-        $configurator = new SmsConfigurator();
-
-        $configurator->portalProfile(150);
-
-        $configurator->configure($this->sms);
-
-        Assert::same(['gProfile', '150', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
-    }
+		Assert::same(['gShort', '', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
 
 
-    public function testMultiChannel(): void
-    {
-        $message = new MultiChannel('420777777777');
-        $message->viber(new SimpleText('test2'))->sms(new SimpleText('test2'));
+	public function testTextSender(): void
+	{
+		$configurator = new SmsConfigurator();
 
-        $configurator = new SmsConfigurator('gText', 'BulkGate');
+		$configurator->textSender('TOPefekt');
 
-        $configurator->unicode();
+		$configurator->configure($this->sms);
 
-        $configurator->configure($message);
-
-        Assert::same(['gText', 'BulkGate', true], [$message->channels['sms']->sender_id, $message->channels['sms']->sender_id_value, $message->channels['sms']->unicode]);
-    }
+		Assert::same(['gText', 'TOPefekt', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
 
 
-    public function testChannel(): void
-    {
-        $configurator = new SmsConfigurator();
+	public function testOwnNumber(): void
+	{
+		$configurator = new SmsConfigurator();
 
-        Assert::same('sms', $configurator->getChannel());
-    }
+		$configurator->numericSender('420777777777');
+
+		$configurator->configure($this->sms);
+
+		Assert::same(['gOwn', '420777777777', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
+
+
+	public function testMobileConnect(): void
+	{
+		$configurator = new SmsConfigurator();
+
+		$configurator->mobileConnect('XXXXXX');
+
+		$configurator->configure($this->sms);
+
+		Assert::same(['gMobile', 'XXXXXX', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
+
+
+	public function testPortalProfile(): void
+	{
+		$configurator = new SmsConfigurator();
+
+		$configurator->portalProfile(150);
+
+		$configurator->configure($this->sms);
+
+		Assert::same(['gProfile', '150', false], [$this->sms->settings->sender_id, $this->sms->settings->sender_id_value, $this->sms->settings->unicode]);
+	}
+
+
+	public function testMultiChannel(): void
+	{
+		$message = new MultiChannel('420777777777');
+		$message->viber(Variant::Text, text: new SimpleText('test'))->sms(new SimpleText('test2'));
+
+		$configurator = new SmsConfigurator('gText', 'BulkGate');
+
+		$configurator->unicode();
+
+		$configurator->configure($message);
+
+		Assert::same(['gText', 'BulkGate', true], [$message->channels['sms']->sender_id, $message->channels['sms']->sender_id_value, $message->channels['sms']->unicode]);
+	}
+
+
+	public function testChannel(): void
+	{
+		$configurator = new SmsConfigurator();
+
+		Assert::same('sms', $configurator->getChannel());
+	}
 }
 
 (new SmsConfiguratorTest())->run();

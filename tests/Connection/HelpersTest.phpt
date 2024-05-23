@@ -17,14 +17,14 @@ require __DIR__ . '/../bootstrap.php';
  */
 class HelpersTest extends TestCase
 {
-    public function testContentType(): void
-    {
-        Assert::same('application/json', Helpers::parseContentType('Content-Type: application/json; charset=utf-8'));
-        Assert::same('application/json', Helpers::parseContentType('Content-Type: application/json'));
-        Assert::same('application/json', Helpers::parseContentType('content-type: application/json; charset=utf-8'));
-        Assert::same('application/json', Helpers::parseContentType('content-type: application/json'));
-        Assert::null(Helpers::parseContentType('invalid'));
-    }
+	public function testContentType(): void
+	{
+		Assert::same('application/json', Helpers::parseContentType('Content-Type: application/json; charset=utf-8'));
+		Assert::same('application/json', Helpers::parseContentType('Content-Type: application/json'));
+		Assert::same('application/json', Helpers::parseContentType('content-type: application/json; charset=utf-8'));
+		Assert::same('application/json', Helpers::parseContentType('content-type: application/json'));
+		Assert::null(Helpers::parseContentType('invalid'));
+	}
 }
 
 (new HelpersTest())->run();

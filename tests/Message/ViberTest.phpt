@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Message\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\{Sdk\TypeError, Sdk\Message\Settings\Viber as ViberSettings, Sdk\Message\Viber};
+use BulkGate\{Sdk\Message\Component\Viber\Variant, Sdk\Message\Settings\Viber as ViberSettings, Sdk\Message\Viber};
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -19,9 +19,6 @@ class ViberTest extends TestCase
 {
     public function testSimple(): void
     {
-        Assert::exception(fn () => new Viber(false, false), TypeError::class, 'Phone number must be \'BulkGate\Sdk\Message\Component\PhoneNumber|string\'');
-        Assert::exception(fn () => new Viber('4206087777777', false), TypeError::class, 'Text must be \'BulkGate\Sdk\Message\Component\SimpleText|string|null\'');
-
         $viber = new Viber('420777777777', 'test');
 
         Assert::type(ViberSettings::class, $viber->settings);
@@ -56,6 +53,14 @@ class ViberTest extends TestCase
         Assert::same('error_message', $viber->error);
 
         Assert::same('420777777777', (string) $viber);
+
+
+	    $viber = new Viber(phone_number: '420777777777', text: 'test', variant: Variant::Card);
+
+	    $viber->text('test_card', ['test' => 'test_card']);
+
+	    Assert::same('test_card', $viber->settings->text->text);
+	    Assert::same(['test' => 'test_card'], $viber->settings->text->variables);
     }
 }
 

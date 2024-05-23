@@ -7,58 +7,57 @@ namespace BulkGate\Sdk\Message;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Sdk\{Utils\Strict, TypeError};
+use BulkGate\Sdk\{Message\Component\PhoneNumber, Utils\Strict};
 
 abstract class Base implements Message, Send
 {
-    use Strict;
+	use Strict;
 
-    public Component\PhoneNumber $phone_number;
+	public Component\PhoneNumber $phone_number;
 
-    public ?int $schedule = null;
+	public int|null $schedule = null;
 
-    public string $status = 'preparation';
+	public string $status = 'preparation';
 
-    public ?string $message_id = null;
+	public string|null $message_id = null;
 
-    /**
-     * @var array<int, string>|null
-     */
-    public ?array $part_id = null;
+	/**
+	 * @var array<int, string>|null
+	 */
+	public array|null $part_id = null;
 
-    public ?string $error = null;
-
-
-    /**
-     * @param Component\PhoneNumber|string|null $phone_number
-     * @throws TypeError
-     */
-    public function __construct(/* @php8 Component\PhoneNumber|string */ $phone_number)
-    {
-        $this->phone_number = Helpers::createNumber($phone_number);
-    }
+	public string|null $error = null;
 
 
-    /**
-     * @param mixed ...$parameters
-     */
-    abstract public function configure(...$parameters): void;
+	/**
+	 * @param Component\PhoneNumber|string $phone_number
+	 */
+	public function __construct(PhoneNumber|string $phone_number)
+	{
+		$this->phone_number = Helpers::createNumber($phone_number);
+	}
 
 
-    /**
-     * @param array<int, string>|null $part_id
-     */
-    public function updateStatus(string $status, ?string $message_id, ?array $part_id, ?string $error = null): void
-    {
-        $this->status = $status;
-        $this->message_id = $message_id;
-        $this->part_id = $part_id;
-        $this->error = $error;
-    }
+	/**
+	 * @param mixed ...$parameters
+	 */
+	abstract public function configure(...$parameters): void;
 
 
-    public function __toString(): string
-    {
-        return "$this->phone_number";
-    }
+	/**
+	 * @param array<int, string>|null $part_id
+	 */
+	public function updateStatus(string $status, ?string $message_id, ?array $part_id, ?string $error = null): void
+	{
+		$this->status = $status;
+		$this->message_id = $message_id;
+		$this->part_id = $part_id;
+		$this->error = $error;
+	}
+
+
+	public function __toString(): string
+	{
+		return "$this->phone_number";
+	}
 }

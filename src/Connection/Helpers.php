@@ -12,19 +12,19 @@ use function preg_match, mb_strtolower;
 
 class Helpers
 {
-    use Strict;
+	use Strict;
 
 
-    public static function parseContentType(string $header): ?string
-    {
-        $header = strtolower($header);
+	public static function parseContentType(string $header): ?string
+	{
+		$header = strtolower($header);
 
-        if (preg_match('~content-type:\s([^\n;]+)~', mb_strtolower($header), $m))
-        {
-            [, $content_type] = $m;
+		if (preg_match('~content-type:\s([^\n;]+)~', mb_strtolower($header), $m))
+		{
+			[, $content_type] = $m;
 
-            return $content_type;
-        }
-        return null;
-    }
+			return $content_type;
+		}
+		return null;
+	}
 }

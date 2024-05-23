@@ -18,32 +18,32 @@ require __DIR__ . '/../bootstrap.php';
  */
 class RequestTest extends TestCase
 {
-    public function testBasic(): void
-    {
-        $request = new Request('action', new Api(['test' => true]));
+	public function testBasic(): void
+	{
+		$request = new Request('action', new Api(['test' => true]));
 
-        Assert::same(['application/json', 'action', '{"auth":true,"test":true}'], $request->encode('application/json', ['auth' => true]));
-    }
-
-
-    public function testExtraContentType(): void
-    {
-        $request = new Request('action', new Api(['test' => true]));
-
-        Assert::same(['application/json', 'action', '{"auth":true,"test":true}'], $request->encode('application/serialize', ['auth' => true]));
-
-        $request->encoders['application/serialize'] = fn ($data) => serialize($data);
-
-        Assert::same(['application/serialize', 'action', 'a:2:{s:4:"auth";b:1;s:4:"test";b:1;}'], $request->encode('application/serialize', ['auth' => true]));
-    }
+		Assert::same(['application/json', 'action', '{"auth":true,"test":true}'], $request->encode('application/json', ['auth' => true]));
+	}
 
 
-    public function testCompress(): void
-    {
-        $request = new Request('action', new Api(['test' => true]));
+	public function testExtraContentType(): void
+	{
+		$request = new Request('action', new Api(['test' => true]));
 
-        Assert::equal(['application/base64+gzip+json', 'action', Expect::match('%S%')], $request->encode('application/base64+gzip+json', ['auth' => true]));
-    }
+		Assert::same(['application/json', 'action', '{"auth":true,"test":true}'], $request->encode('application/serialize', ['auth' => true]));
+
+		$request->encoders['application/serialize'] = fn($data) => serialize($data);
+
+		Assert::same(['application/serialize', 'action', 'a:2:{s:4:"auth";b:1;s:4:"test";b:1;}'], $request->encode('application/serialize', ['auth' => true]));
+	}
+
+
+	public function testCompress(): void
+	{
+		$request = new Request('action', new Api(['test' => true]));
+
+		Assert::equal(['application/base64+gzip+json', 'action', Expect::match('%S%')], $request->encode('application/base64+gzip+json', ['auth' => true]));
+	}
 }
 
 (new RequestTest())->run();

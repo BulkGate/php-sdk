@@ -19,8 +19,10 @@ class ChannelTest extends TestCase
 {
     public function testSimple(): void
     {
-        Assert::same('viber', Channel::VIBER);
+        Assert::same('viber', Channel::viber);
         Assert::same('sms', Channel::SMS);
+	    Assert::same('rcs', Channel::RCS);
+	    Assert::same('whatsapp', Channel::whatsApp);
     }
 }
 

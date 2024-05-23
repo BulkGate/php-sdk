@@ -3,57 +3,38 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\Utils\Strict, Sdk\TypeError};
+use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\Utils\Strict};
 use function is_string;
 
 class Helpers
 {
-    use Strict;
+	use Strict;
+
+	public static function createNumber(Component\PhoneNumber|string $phone_number): Component\PhoneNumber
+	{
+		if (is_string($phone_number))
+		{
+			$phone_number = new Component\PhoneNumber($phone_number);
+		}
+
+		return $phone_number;
+	}
 
 
-    /**
-     * @param Component\PhoneNumber|string|null|mixed $phone_number
-     * @throws TypeError
-     */
-    public static function createNumber(/* @php8 Component\PhoneNumber|string */ $phone_number): Component\PhoneNumber
-    {
-        if ($phone_number instanceof Component\PhoneNumber)
-        {
-            return $phone_number;
-        }
-        else if (is_string($phone_number))
-        {
-            return new Component\PhoneNumber($phone_number);
-        }
-        else
-        {
-            throw new TypeError('Phone number must be \'' . Component\PhoneNumber::class . '|string\'');
-        }
-    }
+	/**
+	 * @param array<string, scalar|null> $variables
+	 */
+	public static function createText(Component\SimpleText|string|null $text, array $variables = []): SimpleText|null
+	{
+		if (is_string($text))
+		{
+			$text = new Component\SimpleText($text, $variables);
+		}
 
-
-    /**
-     * @param Component\SimpleText|string|null|mixed $text
-     * @param array<string, string|float|int> $variables
-     * @throws TypeError
-     */
-    public static function createText($text, array $variables = []): ?SimpleText
-    {
-        if ($text instanceof Component\SimpleText || $text === null)
-        {
-            return $text;
-        }
-        else if (is_string($text))
-        {
-            return new Component\SimpleText($text, $variables);
-        }
-        else
-        {
-            throw new TypeError('Text must be \'' . Component\SimpleText::class . '|string|null\'');
-        }
-    }
+		return $text;
+	}
 }

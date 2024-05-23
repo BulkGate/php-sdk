@@ -36,6 +36,13 @@ class SmsTest extends TestCase
         Assert::same('gText', $sms->sender_id);
         Assert::same('BulkGate', $sms->sender_id_value);
         Assert::true($sms->unicode);
+
+	    $sms->configure(channel: 'sms', sender_id: 'gOwn', sender_id_value: '420777777777', unicode: false);
+
+	    Assert::same($text, $sms->text);
+	    Assert::same('gText', $sms->sender_id);
+	    Assert::same('BulkGate', $sms->sender_id_value);
+	    Assert::true($sms->unicode);
     }
 
 
