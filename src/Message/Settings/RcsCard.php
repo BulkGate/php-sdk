@@ -17,18 +17,18 @@ class RcsCard implements Rcs
 
 
 	/**
-	 * @param array<Suggestion> $suggestions
+	 * @param list<Suggestion|mixed> $suggestions
 	 * @param int<60, max>|null $timeout
 	 */
 	public function __construct(
-		public readonly string      $title,
-		public readonly string      $description,
-		public readonly string      $url,
-		public string|null          $sender = null,
-		public readonly bool        $force_refresh = false,
-		public readonly Height|null $height = null,
-		public array                $suggestions = [],
-		public int|null             $timeout = null
+		public readonly string $title,
+		public readonly string $description,
+		public readonly string $url,
+		public string|null $sender = null,
+		public bool|null $force_refresh = false,
+		public Height|null $height = null,
+		public array $suggestions = [],
+		public int|null $timeout = null
 	)
 	{
 	}
@@ -38,18 +38,22 @@ class RcsCard implements Rcs
 	{
 		if (array_is_list($parameters))
 		{
-			[$channel, $sender, $timeout] = array_pad($parameters, 3, null);
+			[$channel, $sender, $timeout, $height, $force_refresh] = array_pad($parameters, 5, null);
 
-			if ($channel === Channel::RCS && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)))
+			if ($channel === Channel::RCS && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && (is_bool($force_refresh) || is_null($force_refresh)))
 			{
 				$this->sender ??= $sender;
-				$this->timeout ??= $timeout ;
+				$this->timeout ??= $timeout;
+				$this->height ??= $height;
+				$this->force_refresh ??= $force_refresh;
 			}
 		}
 		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::RCS)
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
+			$this->height ??= isset($parameters['height']) && ($parameters['height'] instanceof Height) ? $parameters['height'] : $this->height;
+			$this->force_refresh ??= isset($parameters['force_refresh']) && is_bool($parameters['force_refresh']) ? $parameters['force_refresh'] : $this->force_refresh;
 		}
 	}
 
@@ -66,7 +70,7 @@ class RcsCard implements Rcs
 				title: $this->title,
 				description: $this->description,
 				file_url: $this->url,
-				file_refresh: $this->force_refresh,
+				file_refresh: $this->force_refresh ?? false,
 				height: $this->height,
 				suggestions: $this->suggestions,
 			))->serialize()

@@ -8,7 +8,7 @@ namespace BulkGate\Sdk\Configurator\Tests;
  */
 
 use Tester\{Assert, TestCase};
-use BulkGate\{Sdk\Configurator\RcsConfigurator, Sdk\Message\Component\Rcs\Variant, Sdk\Message\Rcs};
+use BulkGate\{Sdk\Configurator\RcsConfigurator, Sdk\Message\Component\Rcs\Height, Sdk\Message\Component\Rcs\Variant, Sdk\Message\Rcs};
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -19,7 +19,7 @@ class RcsConfiguratorTest extends TestCase
 {
 	private Rcs|null $rcs = null;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->rcs = new Rcs(phone_number: '420608777777', variant: Variant::Text, text: 'text');
 	}
@@ -81,7 +81,7 @@ class RcsConfiguratorTest extends TestCase
 			variant: Variant::Card,
 			url: 'url',
 			title: 'title',
-			description: 'description'
+			description: 'description',
 		);
 
 		$configurator->configure($message);

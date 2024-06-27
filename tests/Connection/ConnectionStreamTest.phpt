@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection\Test;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -18,7 +18,7 @@ require __DIR__ . '/FileFunctionsMock.php';
  */
 class ConnectionStreamTest extends TestCase
 {
-	public function setUp()
+	public function setUp(): void
 	{
 		MockCallCounter::reset();
 	}

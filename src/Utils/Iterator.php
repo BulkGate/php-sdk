@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,7 +13,7 @@ use function array_values, count;
 
 /**
  * @implements IteratorAggregate<array-key, Base>
- * @implements ArrayAccess<array-key, Base>
+ * @implements ArrayAccess<array-key, Base|mixed>
  */
 abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, JsonSerializable
 {
@@ -25,10 +25,7 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
     protected array $list = [];
 
 
-    /**
-     * @param mixed $offset
-     */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->list[$offset]);
     }
@@ -36,10 +33,9 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
 
     /**
      * @param array-key $offset
-     * @return mixed|null
      */
     #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->list[$offset] ?? null;
     }
@@ -47,9 +43,8 @@ abstract class Iterator implements ArrayAccess, IteratorAggregate, Countable, Js
 
     /**
      * @param array-key|null $offset
-     * @param mixed $value
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, mixed $value): void
     {
         $offset === null ? $this->list[] = $value : $this->list[$offset] = $value;
     }

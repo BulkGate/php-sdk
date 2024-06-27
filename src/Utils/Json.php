@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Utils;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -16,10 +16,9 @@ class Json
 
 
     /**
-     * @param mixed $value
      * @throws JsonException
      */
-    public static function encode($value): string
+    public static function encode(mixed $value): string
     {
         $json = json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | (defined('JSON_PRESERVE_ZERO_FRACTION') ? JSON_PRESERVE_ZERO_FRACTION : 0));
 
@@ -33,10 +32,9 @@ class Json
 
 
     /**
-     * @return mixed
      * @throws JsonException
      */
-    public static function decode(string $json)
+    public static function decode(string $json): mixed
     {
         $value = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 

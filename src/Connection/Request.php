@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -14,17 +14,9 @@ class Request
 {
 	use Strict;
 
-	private string $action;
-
-	private Send $send;
 
 	/**
-	 * @var array<array-key, mixed>
-	 */
-	private array $parameters;
-
-	/**
-	 * @var array<array-key, callable>
+	 * @var array<array-key, callable(mixed): mixed>
 	 */
 	public array $encoders = [];
 
@@ -32,11 +24,8 @@ class Request
 	/**
 	 * @param array<array-key, mixed> $parameters
 	 */
-	public function __construct(string $action, Send $send, array $parameters = [])
+	public function __construct(private readonly string $action, private readonly Send $send, private readonly array $parameters = [])
 	{
-		$this->action = $action;
-		$this->send = $send;
-		$this->parameters = $parameters;
 		$this->encoders['application/json'] = fn($data) => Json::encode($data);
 		$this->encoders['application/base64+gzip+json'] = fn($data) => CompressJson::encode($data);
 	}
@@ -44,7 +33,7 @@ class Request
 
 	/**
 	 * @param array<array-key, mixed> $data
-	 * @return array{string, string, array<array-key, mixed>}
+	 * @return array{string, string, string}
 	 */
 	public function encode(string $content_type = 'application/json', array $data = []): array
 	{

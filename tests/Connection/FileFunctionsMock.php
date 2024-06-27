@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 class MockCallCounter
@@ -21,7 +21,7 @@ class MockCallCounter
 /**
  * @return resource|false a file pointer resource on success, or false on error.
  */
-function fopen(...$parameters)
+function fopen(...$parameters): string|bool
 {
 	MockCallCounter::$callstack['fopen'][] = [$parameters];
 
@@ -38,7 +38,7 @@ function fopen(...$parameters)
 }
 
 
-function stream_context_create(...$parameters)
+function stream_context_create(...$parameters): bool
 {
 	MockCallCounter::$callstack['stream_context_create'][] = [$parameters];
 
@@ -49,7 +49,7 @@ function stream_context_create(...$parameters)
 /**
  * @return string|false
  */
-function stream_get_contents(...$parameters)
+function stream_get_contents(...$parameters): string|false
 {
 	MockCallCounter::$callstack['stream_get_contents'][] = [$parameters];
 
@@ -60,7 +60,7 @@ function stream_get_contents(...$parameters)
 /**
  * @return array|false
  */
-function stream_get_meta_data(...$parameters)
+function stream_get_meta_data(...$parameters): array|false
 {
 	MockCallCounter::$callstack['stream_get_meta_data'][] = [$parameters];
 
@@ -81,7 +81,7 @@ function stream_get_meta_data(...$parameters)
 }
 
 
-function fclose(...$parameters)
+function fclose(...$parameters): bool
 {
 	MockCallCounter::$callstack['fclose'][] = [$parameters];
 

@@ -8,27 +8,28 @@ namespace BulkGate\Sdk\Message\Component\Rcs;
  */
 
 use ArrayAccess;
+use BulkGate\Sdk\Message\Component\Rcs\Suggestion\Suggestion;
 use function count, mb_strlen, trim;
 
 /**
- * @implements ArrayAccess<int, Suggestion\Suggestion>
+ * @implements ArrayAccess<int, Suggestion|mixed>
  */
 class Card implements ArrayAccess
 {
 	use Suggestions;
 
 	/**
-	 * @param list<Suggestion\Suggestion> $suggestions
+	 * @param list<Suggestion|mixed> $suggestions
 	 */
 	public function __construct(
-		public string|null        $title = null,
-		public string|null        $description = null,
-		public Alignment|null     $alignment = null,
-		public Orientation|null   $orientation = null,
-		public string|null        $file_url = null,
-		public bool               $file_refresh = false,
+		public string|null $title = null,
+		public string|null $description = null,
+		public Alignment|null $alignment = null,
+		public Orientation|null $orientation = null,
+		public string|null $file_url = null,
+		public bool $file_refresh = false,
 		public Height|string|null $height = null,
-		array                     $suggestions = [],
+		array $suggestions = [],
 	)
 	{
 		$this->initSuggestions($suggestions);

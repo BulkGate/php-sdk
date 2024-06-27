@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Configurator;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,21 +13,12 @@ class ViberConfigurator implements Configurator
 {
 	use Strict;
 
-	public string $sender;
-
-	public Button|null $button = null;
-
-	public Image|null $image = null;
 
 	/**
-	 * @var int<60, max>|null
+	 * @param int<60, max>|null $expiration
 	 */
-	public int|null $expiration = null;
-
-
-	public function __construct(string $sender)
+	public function __construct(public readonly string $sender, public Button|null $button = null, public Image|null $image = null, public int|null $expiration = null)
 	{
-		$this->sender = $sender;
 	}
 
 
@@ -46,7 +37,7 @@ class ViberConfigurator implements Configurator
 	/**
 	 * @param int<60, max>|null $expiration
 	 */
-	public function expiration(?int $expiration): void
+	public function expiration(int|null $expiration): void
 	{
 		$this->expiration = $expiration;
 	}
@@ -54,12 +45,12 @@ class ViberConfigurator implements Configurator
 
 	public function configure(Base $message): void
 	{
-		$message->configure(Channel::viber, $this->sender, $this->expiration);
+		$message->configure(Channel::Viber, $this->sender, $this->expiration);
 	}
 
 
 	public function getChannel(): string
 	{
-		return Channel::viber;
+		return Channel::Viber;
 	}
 }

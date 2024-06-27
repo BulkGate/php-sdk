@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -25,19 +25,19 @@ class MultiChannel extends Base
 	private const ChannelMap = [
 		Settings\Sms::class => Channel::SMS,
 
-		Settings\ViberCard::class => Channel::viber,
-		Settings\ViberText::class => Channel::viber,
+		Settings\ViberCard::class => Channel::Viber,
+		Settings\ViberText::class => Channel::Viber,
 
 		Settings\RcsText::class => Channel::RCS,
 		Settings\RcsCarousel::class => Channel::RCS,
 		Settings\RcsCard::class => Channel::RCS,
 		Settings\RcsFile::class => Channel::RCS,
 
-		Settings\WhatsAppMessage::class => Channel::whatsApp,
-		Settings\WhatsAppOtp::class => Channel::whatsApp,
-		Settings\WhatsAppLocation::class => Channel::whatsApp,
-		Settings\WhatsAppTemplate::class => Channel::whatsApp,
-		Settings\WhatsAppFile::class => Channel::whatsApp
+		Settings\WhatsAppMessage::class => Channel::WhatsApp,
+		Settings\WhatsAppOtp::class => Channel::WhatsApp,
+		Settings\WhatsAppLocation::class => Channel::WhatsApp,
+		Settings\WhatsAppTemplate::class => Channel::WhatsApp,
+		Settings\WhatsAppFile::class => Channel::WhatsApp
 	];
 
 
@@ -86,8 +86,7 @@ class MultiChannel extends Base
 	{
 		$channel = $parameters[0] ?? null;
 
-		if (isset($this->channels[$channel]) && $this->channels[$channel] instanceof Settings\Settings)
-		{
+		if (isset($this->channels[$channel])) {
 			$this->channels[$channel]->configure(...$parameters);
 		}
 	}
@@ -98,8 +97,7 @@ class MultiChannel extends Base
 	 */
 	public function setPrimaryChannel(string $channel): self
 	{
-		if (!isset($this->channels[$channel]))
-		{
+		if (!isset($this->channels[$channel])) {
 			throw new ChannelException("Channel '$channel' is not defined.");
 		}
 
@@ -116,8 +114,7 @@ class MultiChannel extends Base
 
 		$channel = self::ChannelMap[$class] ?? null;
 
-		if ($channel !== null)
-		{
+		if ($channel !== null) {
 			$this->primary_channel ??= $channel;
 
 			$this->channels[$channel] = $settings;
@@ -135,7 +132,7 @@ class MultiChannel extends Base
 		return [
 			'primary_channel' => $this->primary_channel ?? Channel::SMS,
 			'phone_number' => (string)$this->phone_number,
-			'country' => $this->phone_number->iso,
+			'country' => $this->phone_number->iso ?? null,
 			'schedule' => $this->schedule,
 			'channels' => $this->channels
 		];

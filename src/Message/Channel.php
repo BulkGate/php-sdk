@@ -3,16 +3,16 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 enum Channel
 {
 	public const SMS = 'sms';
 
-	public const viber = 'viber';
+	public const Viber = 'viber';
 
 	public const RCS = 'rcs';
 
-	public const whatsApp = 'whatsapp';
+	public const WhatsApp = 'whatsapp';
 }

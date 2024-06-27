@@ -13,7 +13,13 @@ class HeaderLocation implements Header
 {
 	use Strict;
 
-	public function __construct(public readonly HeaderType $type, public readonly float $latitude, public readonly float $longitude, public readonly string $name, public readonly string $address)
+	public function __construct(
+		public readonly HeaderType $type,
+		public readonly float $latitude,
+		public readonly float $longitude,
+		public readonly string $name,
+		public readonly string $address
+	)
 	{
 	}
 

@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Component;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -19,7 +19,7 @@ class SimpleText implements Text
 	 */
 	public function __construct(public string $text = '', public array $variables = [])
 	{
-		if ($text !== null)
+		if ($text !== '')
 		{
 			$this->text($text, $variables);
 		}

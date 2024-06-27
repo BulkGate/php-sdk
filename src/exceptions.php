@@ -3,10 +3,9 @@
 namespace BulkGate\Sdk;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-
 class SdkException extends \Exception
 {
 }

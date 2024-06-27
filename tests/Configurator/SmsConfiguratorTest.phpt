@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Configurator\Tests;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -19,7 +19,7 @@ class SmsConfiguratorTest extends TestCase
 {
 	private Sms|null $sms = null;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->sms = new Sms('420608777777', 'test');
 	}

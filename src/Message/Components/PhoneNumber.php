@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Component;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -30,7 +30,7 @@ class PhoneNumber /* @php8 Stringable */
 	}
 
 
-	public function iso(?string $iso): self
+	public function iso(string|null $iso): self
 	{
 		if (is_string($iso) && mb_strlen($iso) === 2)
 		{

@@ -19,10 +19,10 @@ class WhatsAppOtp implements WhatsApp
 	 */
 	public function __construct(
 		public string|null $sender = null,
-		public string      $template = 'verification_code',
-		public string      $code = '',
-		public string      $language = 'en',
-		public int|null    $timeout = null,
+		public string $template = 'verification_code',
+		public string $code = '',
+		public string $language = 'en',
+		public int|null $timeout = null,
 	)
 	{
 	}
@@ -30,21 +30,23 @@ class WhatsAppOtp implements WhatsApp
 
 	public function configure(...$parameters): void
 	{
-		if (array_is_list($parameters))
+		/*if (array_is_list($parameters))
 		{
 			[$channel, $sender, $timeout] = array_pad($parameters, 3, null);
 
-			if ($channel === Channel::whatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)))
+			if ($channel === Channel::WhatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)))
 			{
 				$this->sender ??= $sender;
 				$this->timeout ??= $timeout;
 			}
 		}
-		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::whatsApp)
+		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::WhatsApp)
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
-		}
+		}*/
+
+		[$this->sender, $this->timeout] = Helpers::configureGeneral($this->sender, $this->timeout, ...$parameters);
 	}
 
 

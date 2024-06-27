@@ -22,7 +22,7 @@ enum SuggestionType: string
 
 	/**
 	 * @param mixed ...$settings
-	 * @return array
+	 * @return array<string|int, mixed>
 	 * @throws InvalidStateException
 	 */
 	public function serialize(mixed ...$settings): array

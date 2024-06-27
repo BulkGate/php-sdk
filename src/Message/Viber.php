@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,8 +13,6 @@ use BulkGate\Sdk\Message\Component\{PhoneNumber, SimpleText, Viber\Variant};
 class Viber extends Base
 {
 	use Strict;
-
-	public Component\PhoneNumber $phone_number;
 
 	public Settings\Viber $settings;
 
@@ -27,12 +25,11 @@ class Viber extends Base
 	 * @param mixed ...$settings
 	 */
 	public function __construct(
-
-		PhoneNumber|string     $phone_number,
+		PhoneNumber|string $phone_number,
 		SimpleText|string|null $text = null,
-		array                  $variables = [],
-		Variant                $variant = Variant::Text,
-		mixed                  ...$settings
+		array $variables = [],
+		Variant $variant = Variant::Text,
+		mixed ...$settings
 	)
 	{
 		parent::__construct($phone_number);
@@ -66,12 +63,12 @@ class Viber extends Base
 	public function jsonSerialize(): array
 	{
 		return [
-			'primary_channel' => Channel::viber,
+			'primary_channel' => Channel::Viber,
 			'phone_number' => (string)$this->phone_number,
-			'country' => $this->phone_number->iso,
+			'country' => $this->phone_number->iso ?? null,
 			'schedule' => $this->schedule,
 			'channels' => [
-				Channel::viber => $this->settings
+				Channel::Viber => $this->settings
 			]
 		];
 	}
@@ -79,6 +76,6 @@ class Viber extends Base
 
 	public function getChannels(): array
 	{
-		return [Channel::viber];
+		return [Channel::Viber];
 	}
 }

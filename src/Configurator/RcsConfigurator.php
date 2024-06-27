@@ -11,14 +11,8 @@ use BulkGate\Sdk\Message\{Base, Channel};
 
 class RcsConfigurator implements Configurator
 {
-	protected string|null $sender = null;
-
-	protected int|null $timeout = null;
-
-
-	public function __construct(string $sender)
+	public function __construct(protected string|null $sender, protected int|null $timeout = null)
 	{
-		$this->sender = $sender;
 	}
 
 

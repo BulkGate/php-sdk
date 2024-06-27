@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Tests;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -28,7 +28,7 @@ class MultiChannelTest extends TestCase
         $message
 	        ->whatsapp(variant: WhatsAppVariant::Text, text: 'text', sender: 'BulkGate')
 	        ->rcs(variant: RcsVariant::Text, text: 'test', sender: 'BulkGate')
-            ->viber(text: new SimpleText(text:'text_viber', variables: []), sender: 'BulkGate', button: new Button('caption', 'url'), image: new Image('image_url', true), timeout: 3_600, variant: Variant::Card)
+            ->viber(variant: Variant::Card, text: new SimpleText(text:'text_viber', variables: []), sender: 'BulkGate', button: new Button('caption', 'url'), image: new Image('image_url', true), timeout: 3_600)
             ->sms(new SimpleText('test_sms', []), 'gText', 'BulkGate', true);
 
         Assert::same('whatsapp', $message->primary_channel);

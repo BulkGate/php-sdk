@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Configurator;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,18 +12,8 @@ use function mb_substr;
 
 class SmsConfigurator implements Configurator
 {
-	protected string $sender_id;
-
-	protected string $sender_id_value;
-
-	protected bool $unicode;
-
-
-	public function __construct(string $sender_id = SmsSender::GATE_SYSTEM_NUMBER, string $sender_value = SmsSender::DEFAULT_SENDER, bool $unicode = false)
+	public function __construct(protected string $sender_id = SmsSender::GATE_SYSTEM_NUMBER, protected string $sender_id_value = SmsSender::DEFAULT_SENDER, protected bool $unicode = false)
 	{
-		$this->sender_id = $sender_id;
-		$this->sender_id_value = $sender_value;
-		$this->unicode = $unicode;
 	}
 
 

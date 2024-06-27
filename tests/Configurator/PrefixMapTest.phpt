@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Configurator\Tests;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -19,9 +19,9 @@ class PrefixMapTest extends TestCase
 {
 	public function testConstants(): void
 	{
-		Assert::same('us', PrefixMap::PREFIX_TO_ISO['1']);
-		Assert::same('cz', PrefixMap::PREFIX_TO_ISO['420']);
-		Assert::same('ru', PrefixMap::PREFIX_TO_ISO['7']);
+		Assert::same('us', PrefixMap::PrefixToIso['1']);
+		Assert::same('cz', PrefixMap::PrefixToIso['420']);
+		Assert::same('ru', PrefixMap::PrefixToIso['7']);
 	}
 }
 

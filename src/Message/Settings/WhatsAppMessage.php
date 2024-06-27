@@ -19,9 +19,9 @@ class WhatsAppMessage implements WhatsApp
 	 */
 	public function __construct(
 		public string|null $sender = null,
-		public string      $text = '',
-		public int|null    $timeout = null,
-		public bool        $preview_url = true,
+		public string $text = '',
+		public int|null $timeout = null,
+		public bool|null $preview_url = true,
 	)
 	{
 	}
@@ -33,14 +33,14 @@ class WhatsAppMessage implements WhatsApp
 		{
 			[$channel, $sender, $timeout, $preview_url] = array_pad($parameters, 4, null);
 
-			if ($channel === Channel::whatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && (is_bool($preview_url) || is_null($preview_url)))
+			if ($channel === Channel::WhatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && (is_null($preview_url) || (is_bool($preview_url))))
 			{
 				$this->sender ??= $sender;
 				$this->timeout ??= $timeout;
 				$this->preview_url ??= $preview_url;
 			}
 		}
-		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::whatsApp)
+		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::WhatsApp)
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
@@ -59,7 +59,7 @@ class WhatsAppMessage implements WhatsApp
 			'expiration' => $this->timeout ?? self::DefaultExpiration,
 			'message' => [
 				'text' => $this->text,
-				'preview_url' => $this->preview_url,
+				'preview_url' => $this->preview_url ?? false,
 			]
 		];
 	}

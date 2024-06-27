@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -20,7 +20,7 @@ class Response
 	private array $data = [];
 
 	/**
-	 * @var array<string, callable>
+	 * @var array<string, callable(mixed): mixed>
 	 */
 	public array $decoders = [];
 

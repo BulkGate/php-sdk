@@ -16,15 +16,16 @@ class RcsText implements Rcs
 	use Strict;
 	use Suggestions;
 
+
 	/**
-	 * @param array<Suggestion> $suggestions
+	 * @param list<Suggestion|mixed> $suggestions
 	 * @param int<60, max>|null $timeout
 	 */
 	public function __construct(
-		public string      $text,
+		public string $text,
 		public string|null $sender = null,
-		public int|null    $timeout = null,
-		array              $suggestions = []
+		public int|null $timeout = null,
+		array $suggestions = []
 	)
 	{
 		$this->initSuggestions($suggestions);
@@ -33,7 +34,7 @@ class RcsText implements Rcs
 
 	public function configure(...$parameters): void
 	{
-		if (array_is_list($parameters))
+		/*if (array_is_list($parameters))
 		{
 			[$channel, $sender, $timeout] = array_pad($parameters, 3, null);
 
@@ -47,7 +48,9 @@ class RcsText implements Rcs
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
-		}
+		}*/
+
+		[$this->sender, $this->timeout] = Helpers::configureGeneral($this->sender, $this->timeout, ...$parameters);
 	}
 
 

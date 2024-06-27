@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message\Component\Tests;
 
 /**
- * @author Marek Piják 2022 TOPefekt s.r.o.
+ * @author Marek Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 

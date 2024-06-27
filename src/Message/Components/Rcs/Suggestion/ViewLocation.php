@@ -13,12 +13,12 @@ use BulkGate\Sdk\Message\Component\Rcs\SuggestionType;
 class ViewLocation extends Action
 {
 	public function __construct(
-		string                   $text,
-		string                   $postback = 'ok',
+		string $text,
+		string $postback = 'ok',
 		public string|float|null $latitude = null,
 		public string|float|null $longitude = null,
-		public string|null       $query = null,
-		public string|null       $label = null,
+		public string|null $query = null,
+		public string|null $label = null,
 	)
 	{
 		parent::__construct(

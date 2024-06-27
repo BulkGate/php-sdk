@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -47,7 +47,7 @@ abstract class Base implements Message, Send
 	/**
 	 * @param array<int, string>|null $part_id
 	 */
-	public function updateStatus(string $status, ?string $message_id, ?array $part_id, ?string $error = null): void
+	public function updateStatus(string $status, string|null $message_id, array|null $part_id, string|null $error = null): void
 	{
 		$this->status = $status;
 		$this->message_id = $message_id;

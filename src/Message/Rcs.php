@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Marek Piják 2022 TOPefekt s.r.o.
+ * @author Marek Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -13,7 +13,6 @@ class Rcs extends Base
 {
 	use Strict;
 
-	public Component\PhoneNumber $phone_number;
 
 	public Settings\Rcs $settings;
 
@@ -36,14 +35,14 @@ class Rcs extends Base
 
 
 	/**
-	 * @return array<string, mixed>
+	 * @return array{primary_channel: string, number: string, country: string|null, schedule: int|null, channels: array<string, Settings\Rcs>}
 	 */
 	public function jsonSerialize(): array
 	{
 		return [
 			'primary_channel' => Channel::RCS,
 			'number' => (string)$this->phone_number,
-			'country' => $this->phone_number->iso,
+			'country' => $this->phone_number->iso ?? null,
 			'schedule' => $this->schedule,
 			'channels' => [
 				Channel::RCS => $this->settings

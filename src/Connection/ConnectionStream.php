@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -14,24 +14,14 @@ class ConnectionStream implements Connection
 {
 	use Strict;
 
-	private int $application_id;
 
-	private string $application_token;
-
-	private string $application_product;
-
-	private string $api;
-
-	private string $content_type;
-
-
-	public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/integration', string $application_product = 'php-sdk', string $content_type = 'application/json')
+	public function __construct(
+		private readonly int $application_id,
+		private readonly string $application_token,
+		private readonly string $api = 'https://portal.bulkgate.com/api/1.0/integration',
+		private readonly string $application_product = 'php-sdk',
+		private readonly string $content_type = 'application/json')
 	{
-		$this->application_id = $application_id;
-		$this->application_token = $application_token;
-		$this->api = $api;
-		$this->application_product = $application_product;
-		$this->content_type = $content_type;
 	}
 
 

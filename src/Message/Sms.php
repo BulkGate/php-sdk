@@ -3,11 +3,11 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\TypeError, Sdk\Utils\Strict};
+use BulkGate\{Sdk\Message\Component\SimpleText, Sdk\Utils\Strict};
 
 class Sms extends Base
 {
@@ -52,7 +52,7 @@ class Sms extends Base
 		return [
 			'primary_channel' => Channel::SMS,
 			'phone_number' => (string)$this->phone_number,
-			'country' => $this->phone_number->iso,
+			'country' => $this->phone_number->iso ?? null,
 			'schedule' => $this->schedule,
 			'channels' => [
 				Channel::SMS => $this->settings

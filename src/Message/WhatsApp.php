@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Marek Piják 2022 TOPefekt s.r.o.
+ * @author Marek Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,8 +12,6 @@ use BulkGate\Sdk\{Utils\Strict, Message\Component\WhatsApp\Variant};
 class WhatsApp extends Base
 {
 	use Strict;
-
-	public Component\PhoneNumber $phone_number;
 
 	public Settings\WhatsApp $settings;
 
@@ -35,15 +33,18 @@ class WhatsApp extends Base
 	}
 
 
+	/**
+	 * @return array{primary_channel: string, number: string, country: string|null, schedule: int|null, channels: array<string, Settings\WhatsApp>}
+	 */
 	public function jsonSerialize(): array
 	{
 		return [
-			'primary_channel' => Channel::whatsApp,
+			'primary_channel' => Channel::WhatsApp,
 			'number' => (string)$this->phone_number,
-			'country' => $this->phone_number->iso,
+			'country' => $this->phone_number->iso ?? null,
 			'schedule' => $this->schedule,
 			'channels' => [
-				Channel::whatsApp => $this->settings
+				Channel::WhatsApp => $this->settings
 			]
 		];
 	}
@@ -51,6 +52,6 @@ class WhatsApp extends Base
 
 	public function getChannels(): array
 	{
-		return [Channel::whatsApp];
+		return [Channel::WhatsApp];
 	}
 }

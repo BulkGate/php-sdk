@@ -29,7 +29,7 @@ class CardTest extends TestCase
 
 		$card[] = new Reply('reply1', 'postback1');
 		$card[] = new Reply('reply2', 'postback2');
-		//$card[] = new Card('reply2', 'postback2');
+		$card[] = new Card('reply2', 'postback2');
 
 		Assert::same([
 			'title' => 'title',

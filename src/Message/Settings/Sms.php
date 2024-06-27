@@ -14,7 +14,12 @@ class Sms implements Settings
 {
 	use Strict;
 
-	public function __construct(public readonly SimpleText $text, public string|null $sender_id = null, public string|null $sender_id_value = null, public bool|null $unicode = null)
+	public function __construct(
+		public readonly SimpleText $text,
+		public string|null $sender_id = null,
+		public string|null $sender_id_value = null,
+		public bool|null $unicode = null
+	)
 	{
 	}
 

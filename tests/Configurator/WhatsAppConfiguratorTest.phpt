@@ -21,7 +21,7 @@ class WhatsAppConfiguratorTest extends TestCase
 {
 	private WhatsApp|null $whatsapp = null;
 
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->whatsapp = new WhatsApp(phone_number: '420608777777', variant: Variant::Text);
 	}

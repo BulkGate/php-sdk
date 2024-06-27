@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Tests;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -18,10 +18,7 @@ require __DIR__ . '/bootstrap.php';
  */
 class MessageSenderTest extends TestCase
 {
-    /**
-     * @var Connection|Mockery\Mock $connection
-     */
-    private $connection;
+    private Connection $connection;
 
     private MessageSender $sender;
 

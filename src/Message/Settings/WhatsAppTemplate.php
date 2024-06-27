@@ -26,13 +26,13 @@ class WhatsAppTemplate implements WhatsApp
 	 * @param int<60, max>|null $timeout
 	 */
 	public function __construct(
-		public Header      $header,
-		public Body        $body,
-		public array       $buttons = [],
+		public Header $header,
+		public Body $body,
+		public array $buttons = [],
 		public string|null $template = null,
-		public string      $language = 'en',
+		public string|null $language = 'en',
 		public string|null $sender = null,
-		public int|null    $timeout = null,
+		public int|null $timeout = null,
 	)
 	{
 	}
@@ -44,14 +44,14 @@ class WhatsAppTemplate implements WhatsApp
 		{
 			[$channel, $sender, $timeout, $language] = array_pad($parameters, 4, null);
 
-			if ($channel === Channel::whatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && (is_string($language) || is_null($language)))
+			if ($channel === Channel::WhatsApp && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && (is_string($language) || is_null($language)))
 			{
-				$this->sender ??= is_string($sender) ? $sender : $this->sender;
-				$this->timeout ??= is_int($timeout) && $timeout >= 60 ? $timeout : $this->timeout;
-				$this->language ??= is_string($language) ? $language : $this->language;
+				$this->sender ??= $sender;
+				$this->timeout ??= $timeout;
+				$this->language ??= $language;
 			}
 		}
-		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::whatsApp)
+		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::WhatsApp)
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
@@ -61,17 +61,7 @@ class WhatsAppTemplate implements WhatsApp
 
 
 	/**
-	 * @return array{
-	 *     sender: string,
-	 *     expiration: int<60, max>,
-	 *     template: array{
-	 *      template: string|null,
-	 *      language: string,
-	 *      header: array<array-key, mixed>,
-	 *      body: array<array-key, mixed>,
-	 *      buttons: array<int<0, max>, array>
-	 *      }
-	 *     }
+	 * @return array<string|int, mixed>
 	 */
 	public function jsonSerialize(): array
 	{

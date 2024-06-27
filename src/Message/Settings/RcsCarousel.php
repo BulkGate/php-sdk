@@ -22,7 +22,7 @@ class RcsCarousel implements Rcs
 	public function __construct(
 		public string|null         $sender = null,
 		public readonly array      $cards = [],
-		public readonly Width|null $width = null,
+		public Width|null $width = null,
 		public int|null            $timeout = null
 	)
 	{
@@ -33,18 +33,20 @@ class RcsCarousel implements Rcs
 	{
 		if (array_is_list($parameters))
 		{
-			[$channel, $sender, $timeout] = array_pad($parameters, 3, null);
+			[$channel, $sender, $timeout, $width] = array_pad($parameters, 4, null);
 
-			if ($channel === Channel::RCS && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)))
+			if ($channel === Channel::RCS && (is_string($sender) || is_null($sender)) && ((is_int($timeout) && $timeout >= 60) || is_null($timeout)) && ($width instanceof Width || is_null($width)))
 			{
 				$this->sender ??= $sender;
 				$this->timeout ??= $timeout;
+				$this->width ??= $width;
 			}
 		}
 		else if (isset($parameters['channel']) && $parameters['channel'] === Channel::RCS)
 		{
 			$this->sender ??= isset($parameters['sender']) && is_string($parameters['sender']) ? $parameters['sender'] : $this->sender;
 			$this->timeout ??= isset($parameters['timeout']) && is_int($parameters['timeout']) && $parameters['timeout'] >= 60 ? $parameters['timeout'] : $this->timeout;
+			$this->width ??= isset($parameters['width']) && ($parameters['width'] instanceof Width) ? $parameters['width'] : $this->width;
 		}
 	}
 
@@ -55,17 +57,13 @@ class RcsCarousel implements Rcs
 	public function jsonSerialize(): array
 	{
 		$cards = [];
-		foreach ($this->cards as $card)
-		{
+		foreach ($this->cards as $card) {
 			$cards[] = $card->serialize();
 		}
 
-		if ($this->width instanceof Width)
-		{
+		if ($this->width instanceof Width) {
 			$width = $this->width->serialize();
-		}
-		else
-		{
+		} else {
 			$width = $this->width ?? null;
 		}
 

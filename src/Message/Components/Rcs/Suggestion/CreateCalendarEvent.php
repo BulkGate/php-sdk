@@ -19,12 +19,12 @@ class CreateCalendarEvent extends Action
 	public function __construct(
 		\DateTime|string|int|null $start,
 		\DateTime|string|int|null $end,
-		public string             $text,
-		public string             $postback = 'ok',
-		public string|null        $title = null,
-		public string|null        $description = null,
-		public string|null        $fallback_url = null,
-		public string             $timezone = 'Europe/London'
+		public string $text,
+		public string $postback = 'ok',
+		public string|null $title = null,
+		public string|null $description = null,
+		public string|null $fallback_url = null,
+		public string $timezone = 'Europe/London'
 	)
 	{
 		$this->start = Helpers::createDateTime($start, $timezone) ?? (new \DateTime('now'))->setTimezone(new DateTimeZone('UTC'));

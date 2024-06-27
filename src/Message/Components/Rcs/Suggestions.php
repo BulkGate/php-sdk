@@ -7,17 +7,18 @@ namespace BulkGate\Sdk\Message\Component\Rcs;
  * @link https://www.bulkgate.com/
  */
 
+use BulkGate\Sdk\Message\Component\Rcs\Suggestion\Suggestion;
 use function array_map, array_key_exists, array_slice;
 
 trait Suggestions
 {
 	/**
-	 * @var list<Suggestion\Suggestion>
+	 * @var list<Suggestion|mixed>|array<int<0, max>, mixed>
 	 */
 	public array $suggestions = [];
 
 	/**
-	 * @param array<array-key, Suggestion\Suggestion|mixed> $list
+	 * @param list<Suggestion|mixed>|array<int<0, max>, mixed> $list
 	 * @return void
 	 */
 	protected function initSuggestions(array $list): void
@@ -30,11 +31,11 @@ trait Suggestions
 
 
 	/**
-	 * @return list<mixed>
+	 * @return array<int, mixed>
 	 */
 	public function serializeSuggestions(int|null $limit = null): array
 	{
-		return array_map(fn(Suggestion\Suggestion $suggestion): array => $suggestion->serialize(), $limit !== null ? array_slice($this->suggestions, 0, $limit) : $this->suggestions);
+		return array_map(fn(Suggestion $suggestion): array => $suggestion->serialize(), $limit !== null ? array_slice($this->suggestions, 0, $limit) : $this->suggestions);
 	}
 
 
@@ -44,7 +45,7 @@ trait Suggestions
 	}
 
 
-	public function offsetGet(mixed $offset): Suggestion\Suggestion|null
+	public function offsetGet(mixed $offset): Suggestion|null
 	{
 		return $this->suggestions[$offset] ?? null;
 	}
@@ -52,7 +53,7 @@ trait Suggestions
 
 	public function offsetSet(mixed $offset, mixed $value): void
 	{
-		if ($value instanceof Suggestion\Suggestion)
+		if ($value instanceof Suggestion)
 		{
 			$this->suggestions[] = $value;
 		}

@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Message;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2024 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -26,7 +26,7 @@ class Bulk extends Iterator implements Send
     }
 
 
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, mixed $value): void
     {
         if ($value instanceof Base)
         {
@@ -35,7 +35,10 @@ class Bulk extends Iterator implements Send
     }
 
 
-    public function jsonSerialize(): array
+	/**
+	 * @return array<array-key, mixed>
+	 */
+	public function jsonSerialize(): array
     {
         return ['messages' => parent::jsonSerialize()];
     }

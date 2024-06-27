@@ -17,15 +17,15 @@ class RcsFile implements Rcs
 
 
 	/**
-	 * @param list<Suggestion> $suggestions
+	 * @param list<Suggestion|mixed> $suggestions
 	 * @param int<60, max>|null $timeout
 	 */
 	public function __construct(
 		public readonly string $url,
-		public bool            $force_refresh = false,
-		public string|null     $sender = null,
-		public int|null        $timeout = null,
-		array                  $suggestions = []
+		public bool|null $force_refresh = false,
+		public string|null $sender = null,
+		public int|null $timeout = null,
+		array $suggestions = []
 	)
 	{
 		$this->initSuggestions($suggestions);
@@ -64,7 +64,7 @@ class RcsFile implements Rcs
 			'expiration' => $this->timeout ?? self::DefaultExpiration,
 			'file' => [
 				'url' => $this->url,
-				'force_refresh' => $this->force_refresh,
+				'force_refresh' => $this->force_refresh ?? false,
 				'suggestions' => $this->serializeSuggestions(4),
 			]
 		];

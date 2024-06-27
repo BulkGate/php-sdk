@@ -11,14 +11,8 @@ use BulkGate\Sdk\Message\{Base, Channel};
 
 class WhatsAppConfigurator implements Configurator
 {
-	protected string|null $sender = null;
-
-	protected int|null $timeout = null;
-
-
-	public function __construct(string $sender)
+	public function __construct(protected string|null $sender, protected int|null $timeout = null)
 	{
-		$this->sender = $sender;
 	}
 
 
@@ -42,12 +36,12 @@ class WhatsAppConfigurator implements Configurator
 
 	public function configure(Base $message): void
 	{
-		$message->configure(Channel::whatsApp, $this->sender, $this->timeout);
+		$message->configure(Channel::WhatsApp, $this->sender, $this->timeout);
 	}
 
 
 	public function getChannel(): string
 	{
-		return Channel::whatsApp;
+		return Channel::WhatsApp;
 	}
 }
