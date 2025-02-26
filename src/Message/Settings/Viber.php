@@ -33,7 +33,7 @@ class Viber implements Settings
     /**
      * @param int<60, max>|null $timeout
      */
-    public function __construct(SimpleText $text, ?string $sender = null, ?Button $button = null, ?Image $image = null, int $timeout = null)
+    public function __construct(SimpleText $text, ?string $sender = null, ?Button $button = null, ?Image $image = null, ?int $timeout = null)
     {
         $this->text = $text;
         $this->sender = $sender;

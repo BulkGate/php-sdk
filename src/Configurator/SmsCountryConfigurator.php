@@ -57,7 +57,7 @@ class SmsCountryConfigurator implements Configurator
         {
             [, $prefix] = $match;
 
-            $iso = PrefixMap::PREFIX_TO_ISO[$prefix] ?? null;
+            $iso = PrefixMap::PREFIX_TO_ISO[$prefix];
 
             if ($iso !== null && isset($this->profile[$iso]))
             {

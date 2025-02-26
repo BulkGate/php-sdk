@@ -3,7 +3,7 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2025 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -12,19 +12,37 @@ use function preg_match, mb_strtolower;
 
 class Helpers
 {
-    use Strict;
+	use Strict;
+
+	public static function parseContentType(string $header): ?string
+	{
+		$header = mb_strtolower($header);
+
+		if (preg_match('~content-type:\s([^\n;]+)~', mb_strtolower($header), $m))
+		{
+			[, $content_type] = $m;
+
+			return $content_type;
+		}
+		return null;
+	}
 
 
-    public static function parseContentType(string $header): ?string
-    {
-        $header = strtolower($header);
+	public static function parseHttpCode(?string $header): ?int
+	{
+		if ($header === null)
+		{
+			return null;
+		}
 
-        if (preg_match('~content-type:\s([^\n;]+)~', mb_strtolower($header), $m))
-        {
-            [, $content_type] = $m;
+		$header = mb_strtolower($header);
 
-            return $content_type;
-        }
-        return null;
-    }
+		if (preg_match('~\s(\d{3})~', mb_strtolower($header), $m))
+		{
+			[, $code] = $m;
+
+			return (int) $code;
+		}
+		return null;
+	}
 }

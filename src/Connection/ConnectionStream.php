@@ -3,12 +3,12 @@
 namespace BulkGate\Sdk\Connection;
 
 /**
- * @author Lukáš Piják 2022 TOPefekt s.r.o.
+ * @author Lukáš Piják 2025 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
 use BulkGate\Sdk\{ConnectionException, Utils\Strict};
-use function implode;
+use function array_key_exists, implode, restore_error_handler, set_error_handler;
 
 class ConnectionStream implements Connection
 {
@@ -25,7 +25,13 @@ class ConnectionStream implements Connection
     private string $content_type;
 
 
-    public function __construct(int $application_id, string $application_token, string $api = 'https://portal.bulkgate.com/api/1.0/integration', string $application_product = 'php-sdk', string $content_type = 'application/json')
+    public function __construct(
+		int $application_id,
+		string $application_token,
+		string $api = 'https://portal.bulkgate.com/api/1.0/integration',
+		string $application_product = 'php-sdk',
+		string $content_type = 'application/json'
+    )
     {
         $this->application_id = $application_id;
         $this->application_token = $application_token;
@@ -40,42 +46,51 @@ class ConnectionStream implements Connection
      */
     public function send(Request $request): Response
     {
-        [$content_type, $action, $data] = $request->encode($this->content_type, [
-            'application_id' => $this->application_id,
-            'application_token' => $this->application_token,
-            'application_product' => $this->application_product
-        ]);
+		try
+		{
+			set_error_handler(function (int $error_code, string $error_message): void { throw new ConnectionException($error_message, $error_code);	});
 
-        $context = stream_context_create(['http' => [
-            'method' => 'POST',
-            'header' => [
-                "Content-type: $content_type"
-            ],
-            'content' => $data,
-            'ignore_errors' => true
-        ]]);
+			[$content_type, $action, $data] = $request->encode($this->content_type, [
+				'application_id' => $this->application_id,
+				'application_token' => $this->application_token,
+				'application_product' => $this->application_product
+			]);
 
-        $connection = fopen("$this->api/$action", 'r', false, $context);
+			$context = stream_context_create(['http' => [
+				'method' => 'POST',
+				'header' => [
+					"Content-type: $content_type"
+				],
+				'content' => $data,
+				'ignore_errors' => true
+			]]);
 
-        if ($connection)
-        {
-            try
-            {
-                $response = (string) stream_get_contents($connection);
+			$connection = fopen("$this->api/$action", 'r', false, $context);
 
-                $meta = stream_get_meta_data($connection);
+			if ($connection)
+			{
+				try
+				{
+					$response = (string) stream_get_contents($connection);
 
-                if (isset($meta['wrapper_data']))
-                {
-                    return new Response(Helpers::parseContentType(implode("\n" , $meta['wrapper_data'])), $response);
-                }
-            }
-            finally
-            {
-                fclose($connection);
-            }
-        }
+					$meta = stream_get_meta_data($connection);
 
-        throw new ConnectionException("BulkGate server is unavailable - $this->api/$action");
+					if (array_key_exists('wrapper_data', $meta))
+					{
+						return new Response(Helpers::parseContentType(implode("\n" , $meta['wrapper_data'])), $response, Helpers::parseHttpCode($meta['wrapper_data'][0] ?? null));
+					}
+				}
+				finally
+				{
+					fclose($connection);
+				}
+			}
+		}
+		finally
+		{
+			restore_error_handler();
+		}
+
+	    throw new ConnectionException("BulkGate server is unavailable - $this->api/$action");
     }
 }
